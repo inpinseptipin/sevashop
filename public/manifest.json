@@ -13,5 +13,5 @@
   "background_color": "#ffffff",
   "start_url": "/",
   "scope": "/",
-  "display": "fullscreen"
+  "display": "standalone"
 }
