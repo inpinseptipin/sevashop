@@ -1,26 +1,16 @@
 {
-  "theme_color": "#4356FF",
-  "background_color": "#4356FF",
-  "display": "standalone",
-  "scope": "/",
-  "start_url": "/",
-  "app_name": "SevaShop",
-  "short_name": "Shop",
+  "name": "next-offline",
+  "short_name": "next-offline",
+  "description": "Nextjs using service worker via next-offline",
   "icons": [
     {
-      "src": "icons/icon-192.png",
+      "src": "/static/pwa.png",
       "sizes": "192x192",
       "type": "image/png"
-    },
-    {
-      "src": "icons/icon-256.png",
-      "sizes": "256x256",
-      "type": "image/png"
-    },
-    {
-      "src": "icons/icon-512.png",
-      "sizes": "512x512",
-      "type": "image/png"
     }
-  ]
+  ],
+  "theme_color": "#ffffff",
+  "background_color": "#ffffff",
+  "start_url": "/",
+  "display": "standalone"
 }
