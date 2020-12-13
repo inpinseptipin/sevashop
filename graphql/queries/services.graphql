@@ -1,0 +1,21 @@
+query Services {
+  collections {
+    items {
+      id
+      name
+      productVariants {
+        items {
+          id
+          name
+          price
+          facetValues {
+            name
+            facet {
+              code
+            }
+          }
+        }
+      }
+    }
+  }
+}

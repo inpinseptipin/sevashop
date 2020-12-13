@@ -1,0 +1,20 @@
+fragment FacetWithValues on Facet {
+  id
+  createdAt
+  updatedAt
+  languageCode
+  isPrivate
+  code
+  name
+  translations {
+    id
+    languageCode
+    name
+    __typename
+  }
+  values {
+    ...FacetValue
+    __typename
+  }
+  __typename
+}

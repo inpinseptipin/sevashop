@@ -1,0 +1,5 @@
+mutation Login($uname: String!, $pass: String!) {
+  login(username: $uname, password: $pass, rememberMe: true) {
+    __typename
+  }
+}

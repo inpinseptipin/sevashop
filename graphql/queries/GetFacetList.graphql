@@ -1,0 +1,10 @@
+query GetFacetList($options: FacetListOptions) {
+  facets(options: $options) {
+    items {
+      ...FacetWithValues
+      __typename
+    }
+    totalItems
+    __typename
+  }
+}

@@ -1,0 +1,59 @@
+fragment ProductVariant on ProductVariant {
+  id
+  createdAt
+  updatedAt
+  enabled
+  languageCode
+  name
+  price
+  currencyCode
+  priceIncludesTax
+  priceWithTax
+  stockOnHand
+  stockAllocated
+  trackInventory
+  outOfStockThreshold
+  useGlobalOutOfStockThreshold
+  taxRateApplied {
+    id
+    name
+    value
+    __typename
+  }
+  taxCategory {
+    id
+    name
+    __typename
+  }
+  sku
+  options {
+    ...ProductOption
+    __typename
+  }
+  facetValues {
+    id
+    code
+    name
+    facet {
+      id
+      name
+      __typename
+    }
+    __typename
+  }
+  featuredAsset {
+    ...Asset
+    __typename
+  }
+  assets {
+    ...Asset
+    __typename
+  }
+  translations {
+    id
+    languageCode
+    name
+    __typename
+  }
+  __typename
+}

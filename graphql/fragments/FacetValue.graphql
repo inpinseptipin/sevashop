@@ -1,0 +1,22 @@
+fragment FacetValue on FacetValue {
+  id
+  createdAt
+  updatedAt
+  languageCode
+  code
+  name
+  translations {
+    id
+    languageCode
+    name
+    __typename
+  }
+  facet {
+    id
+    createdAt
+    updatedAt
+    name
+    __typename
+  }
+  __typename
+}

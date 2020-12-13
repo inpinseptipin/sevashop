@@ -1,0 +1,6 @@
+mutation CreateProductOptionGroup($input: CreateProductOptionGroupInput!) {
+  createProductOptionGroup(input: $input) {
+    ...ProductOptionGroupWithOptions
+    __typename
+  }
+}

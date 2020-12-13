@@ -1,0 +1,13 @@
+fragment ProductOptionGroup on ProductOptionGroup {
+  id
+  code
+  languageCode
+  name
+  translations {
+    id
+    languageCode
+    name
+    __typename
+  }
+  __typename
+}

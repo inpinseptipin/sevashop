@@ -1,0 +1,51 @@
+fragment ProductWithVariants on Product {
+  id
+  createdAt
+  updatedAt
+  enabled
+  languageCode
+  name
+  slug
+  description
+  featuredAsset {
+    ...Asset
+    __typename
+  }
+  assets {
+    ...Asset
+    __typename
+  }
+  translations {
+    id
+    languageCode
+    name
+    slug
+    description
+    __typename
+  }
+  optionGroups {
+    ...ProductOptionGroup
+    __typename
+  }
+  variants {
+    ...ProductVariant
+    __typename
+  }
+  facetValues {
+    id
+    code
+    name
+    facet {
+      id
+      name
+      __typename
+    }
+    __typename
+  }
+  channels {
+    id
+    code
+    __typename
+  }
+  __typename
+}
