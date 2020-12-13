@@ -11,7 +11,9 @@ import {
 } from "@chakra-ui/react";
 import { SalonIcon } from "./Icons";
 import { QuestionIcon } from "@chakra-ui/icons";
-interface SettingsProps {}
+interface SettingsProps {
+  user: any;
+}
 
 export const Settings: React.FC<SettingsProps> = ({ user }) => {
   // console.log("here is the received user", user);
