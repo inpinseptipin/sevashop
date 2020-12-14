@@ -1,29 +1,16 @@
+import { SearchIcon } from "@chakra-ui/icons";
 import {
-  ChevronDownIcon,
-  DeleteIcon,
-  EditIcon,
-  SearchIcon,
-} from "@chakra-ui/icons";
-import {
-  Box,
+  Button,
   Flex,
   Heading,
-  Text,
-  VStack,
   Input,
   InputGroup,
   InputLeftElement,
-  Spacer,
-  Button,
 } from "@chakra-ui/react";
-import React from "react";
-import { GoBackIcon, SampleServiceIcon } from "../Icons";
-
-import useSWR from "swr";
-import { ServiceList } from "./ServiceList";
-import { useAuth } from "@/lib/auth";
-import { useLoginMutation, useServicesQuery } from "generated/graphql";
 import { useRouter } from "next/router";
+import React from "react";
+import { GoBackIcon } from "../Icons";
+import { ServiceList } from "./ServiceList";
 
 interface ServicesProps {}
 

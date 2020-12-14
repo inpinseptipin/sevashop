@@ -2,10 +2,10 @@ import theme from "@/styles/theme";
 import { ChakraProvider } from "@chakra-ui/react";
 import "focus-visible/dist/focus-visible";
 import { AuthProvider } from "@/lib/auth";
-// import "swiper/swiper.scss";
 import { createClient, Provider } from "urql";
 const client = createClient({
-  url: "http://localhost:4000/admin-api?vendure-token=xae8shfoehl1x27xhyn",
+  url:
+    "https://server.sevashop.tech/admin-api?vendure-token=wdb0yw5brs4bl35wto1i",
   fetchOptions: {
     credentials: "include",
   },

@@ -1,12 +1,10 @@
 import {
   Accordion,
-  AccordionItem,
   AccordionButton,
-  Box,
   AccordionIcon,
+  AccordionItem,
   AccordionPanel,
-  Text,
-  Flex,
+  Box,
   Skeleton,
 } from "@chakra-ui/react";
 import { useServicesQuery } from "generated/graphql";

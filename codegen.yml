@@ -1,5 +1,5 @@
 overwrite: true
-schema: "http://localhost:4000/admin-api"
+schema: "https://server.sevashop.tech/admin-api"
 documents: "graphql/**/*.graphql"
 generates:
   generated/graphql.tsx:

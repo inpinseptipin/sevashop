@@ -2113,8 +2113,11 @@ export type ErrorResult = {
 
 export type StringOperators = {
   eq?: Maybe<Scalars['String']>;
+  notEq?: Maybe<Scalars['String']>;
   contains?: Maybe<Scalars['String']>;
+  notContains?: Maybe<Scalars['String']>;
   in?: Maybe<Array<Scalars['String']>>;
+  notIn?: Maybe<Array<Scalars['String']>>;
   regex?: Maybe<Scalars['String']>;
 };
 
@@ -4253,6 +4256,30 @@ export type AssetFragment = (
   )> }
 );
 
+export type FacetValueFragment = (
+  { __typename: 'FacetValue' }
+  & Pick<FacetValue, 'id' | 'createdAt' | 'updatedAt' | 'languageCode' | 'code' | 'name'>
+  & { translations: Array<(
+    { __typename: 'FacetValueTranslation' }
+    & Pick<FacetValueTranslation, 'id' | 'languageCode' | 'name'>
+  )>, facet: (
+    { __typename: 'Facet' }
+    & Pick<Facet, 'id' | 'createdAt' | 'updatedAt' | 'name'>
+  ) }
+);
+
+export type FacetWithValuesFragment = (
+  { __typename: 'Facet' }
+  & Pick<Facet, 'id' | 'createdAt' | 'updatedAt' | 'languageCode' | 'isPrivate' | 'code' | 'name'>
+  & { translations: Array<(
+    { __typename: 'FacetTranslation' }
+    & Pick<FacetTranslation, 'id' | 'languageCode' | 'name'>
+  )>, values: Array<(
+    { __typename: 'FacetValue' }
+    & FacetValueFragment
+  )> }
+);
+
 export type ProductOptionFragment = (
   { __typename: 'ProductOption' }
   & Pick<ProductOption, 'id' | 'code' | 'languageCode' | 'name' | 'groupId'>
@@ -4432,6 +4459,23 @@ export type LogoutMutation = (
   ) }
 );
 
+export type GetFacetListQueryVariables = Exact<{
+  options?: Maybe<FacetListOptions>;
+}>;
+
+
+export type GetFacetListQuery = (
+  { __typename?: 'Query' }
+  & { facets: (
+    { __typename: 'FacetList' }
+    & Pick<FacetList, 'totalItems'>
+    & { items: Array<(
+      { __typename: 'Facet' }
+      & FacetWithValuesFragment
+    )> }
+  ) }
+);
+
 export type ServicesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -4461,6 +4505,52 @@ export type ServicesQuery = (
   ) }
 );
 
+export const FacetValueFragmentDoc = gql`
+    fragment FacetValue on FacetValue {
+  id
+  createdAt
+  updatedAt
+  languageCode
+  code
+  name
+  translations {
+    id
+    languageCode
+    name
+    __typename
+  }
+  facet {
+    id
+    createdAt
+    updatedAt
+    name
+    __typename
+  }
+  __typename
+}
+    `;
+export const FacetWithValuesFragmentDoc = gql`
+    fragment FacetWithValues on Facet {
+  id
+  createdAt
+  updatedAt
+  languageCode
+  isPrivate
+  code
+  name
+  translations {
+    id
+    languageCode
+    name
+    __typename
+  }
+  values {
+    ...FacetValue
+    __typename
+  }
+  __typename
+}
+    ${FacetValueFragmentDoc}`;
 export const ProductOptionGroupWithOptionsFragmentDoc = gql`
     fragment ProductOptionGroupWithOptions on ProductOptionGroup {
   id
@@ -4742,6 +4832,22 @@ export const LogoutDocument = gql`
 
 export function useLogoutMutation() {
   return Urql.useMutation<LogoutMutation, LogoutMutationVariables>(LogoutDocument);
+};
+export const GetFacetListDocument = gql`
+    query GetFacetList($options: FacetListOptions) {
+  facets(options: $options) {
+    items {
+      ...FacetWithValues
+      __typename
+    }
+    totalItems
+    __typename
+  }
+}
+    ${FacetWithValuesFragmentDoc}`;
+
+export function useGetFacetListQuery(options: Omit<Urql.UseQueryArgs<GetFacetListQueryVariables>, 'query'> = {}) {
+  return Urql.useQuery<GetFacetListQuery>({ query: GetFacetListDocument, ...options });
 };
 export const ServicesDocument = gql`
     query Services {

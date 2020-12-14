@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import React, { useState, useEffect, useContext, createContext } from "react";
 import { createUser, getUser } from "./db";
 import firebase from "./firebase";
-const authContext = createContext();
+const authContext = createContext(null);
 
 export function AuthProvider({ children }) {
   const auth = useProvideAuth();
@@ -95,10 +95,11 @@ function useProvideAuth() {
       // if (user) {
       // console.log(user);
       // const logindata = useSWR(LOGIN_QUERY, fetcher);
-      const ans = await gqlLogin({
+      const serverLoginRes = await gqlLogin({
         uname: "superadmin",
         pass: "superadmin",
       });
+      console.log("login response", serverLoginRes);
       createUser(user.uid, user);
       const userAlt = await getUser(user.uid);
       // console.log(user);

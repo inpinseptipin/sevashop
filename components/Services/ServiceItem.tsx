@@ -1,5 +1,5 @@
 import { DeleteIcon } from "@chakra-ui/icons";
-import { Text, Box, Flex, Spacer, Button } from "@chakra-ui/react";
+import { Box, Button, Spacer, Text } from "@chakra-ui/react";
 import React from "react";
 import { SampleServiceIcon } from "../Icons";
 
