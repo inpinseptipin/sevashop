@@ -27,9 +27,10 @@ import {
 } from "../components/Icons";
 
 // 1. Reuse the styles for the Tab
-const StyledTab = chakra("button", { themeKey: "Tabs.Tab" });
+// const StyledTab = chakra("button", { themeKey: "Tabs.Tab" });
+const StyledTab = chakra("button");
 
-const CustomTab = React.forwardRef((props, ref) => {
+const CustomTab = React.forwardRef((props: any, ref) => {
   // 2. Reuse the `useTab` hook
   const tabProps = useTab(props);
   const isSelected = !!tabProps["aria-selected"];
