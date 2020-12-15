@@ -57,6 +57,7 @@ export const Register: React.FC<registerProps> = ({}) => {
         initialValues={{ location: "" }}
         // onSubmit={(values, { setErrors }) => sendOTP(values.phonenumber)}
         onSubmit={(values, { setErrors }) => {
+          auth.addDisplayName();
           createUser(auth.user.uid, { salonLocation: values.location });
           console.log("going to dashboard");
           // setBody("screen1");

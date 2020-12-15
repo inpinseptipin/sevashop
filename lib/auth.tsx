@@ -1,3 +1,4 @@
+import { useToast } from "@chakra-ui/react";
 import { useLoginMutation } from "generated/graphql";
 import { useRouter } from "next/router";
 import React, { useState, useEffect, useContext, createContext } from "react";
@@ -17,11 +18,13 @@ export const useAuth = () => {
 function useProvideAuth() {
   const router = useRouter();
   const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
   const [userAll, setUserAll] = useState(null);
   const [, gqlLogin] = useLoginMutation();
 
   // console.log(user);
-  const signinWithPhone = (phoneNumber: string) => {
+  const signinWithPhone = (phoneNumber: string, setBody) => {
+    setLoading(true);
     var phoneNumber = `+91${phoneNumber}`;
     //If you want to make the recaptcha invisible
     var recaptcha = new firebase.auth.RecaptchaVerifier("recaptcha-container", {
@@ -29,15 +32,17 @@ function useProvideAuth() {
     });
     // console.log("recaptcha is ", recaptcha);
     // console.log("captcha created");
+
     firebase
       .auth()
       .signInWithPhoneNumber(phoneNumber, recaptcha)
       .then(function (confirmationResult) {
         // SMS sent. Prompt user to type the code from the message, then sign the
         (window as any).confirmationResult = confirmationResult;
+
         // window.confirmationResult = confirmationResult;
         // console.log((window as any).confirmationResult);
-        // setBody("screen2");
+        setBody("screen2");
       })
       .catch(function (error) {
         // Error; SMS not sent
@@ -46,17 +51,23 @@ function useProvideAuth() {
       });
   };
 
-  const verifyPhone = (code) => {
+  const verifyPhone = (code, toast) => {
+    setLoading(true);
+
     (window as any).confirmationResult
       .confirm(code)
       .then(async function (result) {
         // User signed in successfully.
         // var user = result.user;
         // console.log(user);
-
         handleUser(result.user);
-        router.push("/register");
+        console.log("result obtained is", result.user);
 
+        if (result.user.displayName) {
+          router.push("/");
+        } else {
+          router.push("/register");
+        }
         // console.log("logged user state is set!!");
         // console.log(user);
         // return true;
@@ -67,7 +78,20 @@ function useProvideAuth() {
         // User couldn't sign in (bad verification code?)
         // ...
         // return false;
+        toast({
+          title: "Incorrect OTP",
+          description: "Please try again",
+          status: "error",
+          duration: 2000,
+          isClosable: true,
+        });
       });
+  };
+
+  const addDisplayName = () => {
+    return firebase.auth().currentUser.updateProfile({
+      displayName: "Temp",
+    });
   };
 
   const signinWithGithub = () => {
@@ -99,16 +123,18 @@ function useProvideAuth() {
         uname: "superadmin",
         pass: "superadmin",
       });
-      console.log("login response", serverLoginRes);
+      // console.log("login response", serverLoginRes);
       createUser(user.uid, user);
       const userAlt = await getUser(user.uid);
       // console.log(user);
       // }
       setUser(user);
       setUserAll(userAlt);
+      setLoading(false);
       return user;
     } else {
       setUser(false);
+      setLoading(false);
       return false;
     }
   };
@@ -127,6 +153,8 @@ function useProvideAuth() {
     signinWithGithub,
     signinWithPhone,
     verifyPhone,
+    addDisplayName,
+    loading,
     signout,
   };
 }

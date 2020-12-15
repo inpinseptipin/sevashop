@@ -1,29 +1,24 @@
-import React from "react";
-import { Wrapper } from "../components/Wrapper";
-import { Form, Formik } from "formik";
-import { InputField } from "../components/InputField";
+import { useAuth } from "@/lib/auth";
 import {
+  Box,
   Button,
   Flex,
-  HStack,
-  PinInput,
-  Text,
-  PinInputField,
-  Box,
-  Image,
-  Input,
-  InputGroup,
-  InputLeftElement,
   Heading,
-  VStack,
+  HStack,
+  Image,
+  PinInput,
+  PinInputField,
+  Text,
+  useToast,
 } from "@chakra-ui/react";
-import { useState } from "react";
+import { Form, Formik } from "formik";
 import { useRouter } from "next/router";
-import { PhoneIcon } from "@chakra-ui/icons";
-import { useAuth } from "@/lib/auth";
+import React, { useState } from "react";
+import { InputField } from "../components/InputField";
 const Login: React.FC<{}> = ({}) => {
   const router = useRouter();
   const auth = useAuth();
+  const toast = useToast();
 
   let screen2 = (
     <Box p="4">
@@ -31,21 +26,19 @@ const Login: React.FC<{}> = ({}) => {
       <Text fontSize="sm" mb="2">
         Enter 6 digit OTP you received
       </Text>
+
       <HStack>
         <PinInput
-          // autocomplete="one-time-code"
-          // onComplete={(value: string) => verifyOTP(value)}
-          // onComplete={(value: string) => setBody("screen1")}
-
           onComplete={(value: string) => {
-            const result = auth.verifyPhone(value);
-            // console.log("result is", result);
-            // if (result) {
-            //   // console.log("loggeed in!");
-            //   router.push("/register");
-            // } else {
-            //   console.log("nahi hua login");
-            // }
+            console.log("otp is", value);
+            auth.verifyPhone(value, toast);
+            toast({
+              title: "Verifying your Account",
+              description: "Hang tight",
+              status: "success",
+              duration: 2000,
+              isClosable: true,
+            });
           }}
         >
           <PinInputField />
@@ -56,6 +49,15 @@ const Login: React.FC<{}> = ({}) => {
           <PinInputField />
         </PinInput>
       </HStack>
+      {/* <Button
+        mt={4}
+        type="submit"
+        colorScheme="primary"
+        color="white"
+        // isLoading={auth.loading}
+      >
+        Submit OTP
+      </Button> */}
       <Image src="/static/login2.png" />
     </Box>
   );
@@ -71,9 +73,10 @@ const Login: React.FC<{}> = ({}) => {
         // onSubmit={(values, { setErrors }) => sendOTP(values.phonenumber)}
         // onSubmit={(values, { setErrors }) => setBody("screen2")}
         onSubmit={(values, { setErrors }) => {
-          auth.signinWithPhone(values.phonenumber);
-          console.log("sent otp");
-          setBody("screen2");
+          const singinRes = auth.signinWithPhone(values.phonenumber, setBody);
+          console.log("signin response", singinRes);
+          // console.log("sent otp");
+          // setBody("screen2");
         }}
         // onSubmit={(values, { setErrors }) => console.log(values.phonenumber)}
       >
@@ -88,8 +91,9 @@ const Login: React.FC<{}> = ({}) => {
           <Button
             mt={4}
             type="submit"
-            backgroundColor="primary.300"
+            colorScheme="primary"
             color="white"
+            isLoading={auth.loading}
           >
             Get OTP
           </Button>
