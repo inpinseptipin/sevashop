@@ -42,6 +42,7 @@ function useProvideAuth() {
 
         // window.confirmationResult = confirmationResult;
         // console.log((window as any).confirmationResult);
+        setLoading(false);
         setBody("screen2");
       })
       .catch(function (error) {

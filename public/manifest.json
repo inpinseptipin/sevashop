@@ -1,11 +1,11 @@
 {
-  "name": "next-offline",
-  "short_name": "next-offline",
-  "description": "Nextjs using service worker via next-offline",
+  "name": "SevaShop",
+  "short_name": "SevaShop",
+  "description": "Take your service business online",
   "icons": [
     {
-      "src": "/static/pwa.png",
-      "sizes": "192x192",
+      "src": "/static/logo.png",
+      "sizes": "512x512",
       "type": "image/png"
     }
   ],

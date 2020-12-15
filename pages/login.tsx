@@ -6,15 +6,37 @@ import {
   Heading,
   HStack,
   Image,
-  PinInput,
+  PinInput as ChakraPinInput,
   PinInputField,
+  PinInputProps,
   Text,
   useToast,
+  VStack,
 } from "@chakra-ui/react";
-import { Form, Formik } from "formik";
+import { Form, Formik, useField } from "formik";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { InputField } from "../components/InputField";
+import * as yup from "yup";
+
+const PinInput = (props: { name: string } & PinInputProps) => {
+  const [field, { error }, { setValue }] = useField(props.name);
+  const onChange = (value: string) => {
+    setValue(value);
+  };
+  return (
+    <ChakraPinInput
+      {...props}
+      {...field}
+      isInvalid={!!error}
+      onChange={onChange}
+    />
+  );
+};
+const validationSchema = yup.object().shape({
+  pin: yup.string().required(),
+});
+
 const Login: React.FC<{}> = ({}) => {
   const router = useRouter();
   const auth = useAuth();
@@ -27,7 +49,7 @@ const Login: React.FC<{}> = ({}) => {
         Enter 6 digit OTP you received
       </Text>
 
-      <HStack>
+      {/* <HStack>
         <PinInput
           onComplete={(value: string) => {
             console.log("otp is", value);
@@ -48,7 +70,46 @@ const Login: React.FC<{}> = ({}) => {
           <PinInputField />
           <PinInputField />
         </PinInput>
-      </HStack>
+      </HStack> */}
+      <Formik
+        initialValues={{ pin: "" }}
+        onSubmit={(values) => {
+          // console.log(values);
+          auth.verifyPhone(values.pin, toast);
+          toast({
+            title: "Verifying your Account",
+            description: "Hang tight",
+            status: "success",
+            duration: 2000,
+            isClosable: true,
+          });
+        }}
+        validationSchema={validationSchema}
+        validateOnMount
+      >
+        <Form>
+          {/* <VStack spacing={4} align="left"> */}
+          <HStack>
+            <PinInput name="pin">
+              <PinInputField />
+              <PinInputField />
+              <PinInputField />
+              <PinInputField />
+              <PinInputField />
+              <PinInputField />
+            </PinInput>
+          </HStack>
+          <Button
+            type="submit"
+            mt={4}
+            colorScheme="primary"
+            isLoading={auth.loading}
+          >
+            Submit
+          </Button>
+          {/* </VStack> */}
+        </Form>
+      </Formik>
       {/* <Button
         mt={4}
         type="submit"
