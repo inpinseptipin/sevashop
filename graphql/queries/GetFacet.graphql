@@ -1,0 +1,9 @@
+query GetFacets($id: ID!) {
+  facet(id: $id) {
+    name
+    values {
+      id
+      name
+    }
+  }
+}

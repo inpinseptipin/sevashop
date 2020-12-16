@@ -18,7 +18,6 @@ export const ServiceItem = ({ service }) => {
     <Button
       fontWeight="regular"
       p="0"
-      // align="center"
       width="100%"
       backgroundColor="white"
       m="2"

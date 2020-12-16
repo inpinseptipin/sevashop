@@ -29,7 +29,7 @@ export const ServiceList = ({ gender }) => {
     <Accordion defaultIndex={[0]} allowMultiple m="2">
       {data.collections.items.map((collection) => (
         <AccordionItem
-          id={collection.id}
+          key={collection.id}
           m="2"
           backgroundColor="white"
           borderRadius="10px"
@@ -41,11 +41,9 @@ export const ServiceList = ({ gender }) => {
             <AccordionIcon />
           </AccordionButton>
           <AccordionPanel pb={4}>
-            {collection.productVariants.items
-              // .filter(checkGender)
-              .map((service) => (
-                <ServiceItem service={service}></ServiceItem>
-              ))}
+            {collection.productVariants.items.map((service) => (
+              <ServiceItem service={service} key={service.id}></ServiceItem>
+            ))}
           </AccordionPanel>
         </AccordionItem>
       ))}

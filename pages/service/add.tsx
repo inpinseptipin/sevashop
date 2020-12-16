@@ -5,93 +5,55 @@ import {
   Button,
   Flex,
   Heading,
-  Text,
-  Slider,
-  SliderFilledTrack,
-  SliderThumb,
-  SliderTrack,
-  useRadio,
-  useRadioGroup,
   HStack,
+  Radio,
+  RadioGroup,
+  Skeleton,
+  Text,
+  useRadioGroup,
 } from "@chakra-ui/react";
-import { Formik, Form } from "formik";
-import { useCreateProductMutation } from "generated/graphql";
+import { Form, Formik } from "formik";
+import { RadioGroupControl } from "formik-chakra-ui";
+import {
+  CreateProductOptionGroupDocument,
+  useAddOptionGroupToProductMutation,
+  useCreateProductMutation,
+  useCreateProductOptionGroupMutation,
+  useCreateProductVariantsMutation,
+  useGetFacetListQuery,
+} from "generated/graphql";
 import React from "react";
+import { RadioCard } from "../../components/RadioCard";
 
 interface addProps {}
-// 1. Create a component that consumes the `useRadio` hook
-function RadioCard(props) {
-  const { getInputProps, getCheckboxProps } = useRadio(props);
-
-  const input = getInputProps();
-  const checkbox = getCheckboxProps();
-
-  return (
-    <Box as="label">
-      <input {...input} />
-      <Box
-        {...checkbox}
-        cursor="pointer"
-        // borderWidth="1px"
-        // borderRadius="md"
-        // boxShadow="md"
-        _checked={{
-          bg: "primary.300",
-          color: "white",
-          // borderColor: "primary.300",
-        }}
-        _focus={{
-          boxShadow: "outline",
-        }}
-        // px={5}
-        // py={3}
-        p="1"
-        fontSize="sm"
-      >
-        {props.children}
-      </Box>
-    </Box>
-  );
-}
-
 export const Add: React.FC<addProps> = ({}) => {
-  const genderOptions = ["Male", "Female"];
-  const { getRootProps, getRadioProps: getGenderRadioProps } = useRadioGroup({
-    name: "Gender",
-    defaultValue: "Female",
-    onChange: console.log,
-  });
-  const categoryOptions = [
-    "Hair Cut & Finish",
-    "Hair Colour",
-    "Hair Treatments",
-  ];
-  const {
-    getRootProps: _,
-    getRadioProps: getCategoryRadioProps,
-  } = useRadioGroup({
-    name: "Gender",
-    // defaultValue: "Female",
-    onChange: console.log,
-  });
-  const staffOptions = ["Deepak Chopra", "Ruh Nexa", "John Doe"];
-  const { getRootProps: __, getRadioProps: getStaffRadioProps } = useRadioGroup(
-    {
-      name: "Staff",
-      // defaultValue: "Female",
-      onChange: console.log,
-    }
-  );
-  const timeOptions = ["15 mins", "30 mins", "45 mins", "1 hour"];
-  const { getRootProps: ___, getRadioProps: getTimeRadioProps } = useRadioGroup(
-    {
-      name: "Time",
-      // defaultValue: "Female",
-      onChange: console.log,
-    }
-  );
+  const [{ data: facetlist, fetching }] = useGetFacetListQuery();
 
   const [, createProduct] = useCreateProductMutation();
+  const [, createProductOptionGroup] = useCreateProductOptionGroupMutation();
+  const [, addOptionGroupToProduct] = useAddOptionGroupToProductMutation();
+  const [, createProductVariants] = useCreateProductVariantsMutation();
+
+  if (fetching) return <Skeleton m="2" height="40px" />;
+
+  const genderOptions = facetlist.facets.items[0].values.map((value) => ({
+    name: value.name,
+    id: value.id,
+  }));
+  const categoryOptions = facetlist.facets.items[1].values.map((value) => ({
+    name: value.name,
+    id: value.id,
+  }));
+  const timeOptions = facetlist.facets.items[2].values
+    .map((value) => ({
+      name: value.name,
+      id: value.id,
+    }))
+    .sort((a, b) => (a.name > b.name ? 1 : b.name > a.name ? -1 : 0));
+  const staffOptions = facetlist.facets.items[3].values.map((value) => ({
+    name: value.name,
+    id: value.id,
+  }));
 
   return (
     <Box p="2">
@@ -108,96 +70,132 @@ export const Add: React.FC<addProps> = ({}) => {
         <Heading ml="4">Add Service</Heading>
       </Flex>
       <Formik
-        initialValues={{ name: "", price: "" }}
-        onSubmit={(values, { setErrors }) => {
+        initialValues={{
+          name: "",
+          price: 0,
+          gender: "",
+          staff: "",
+          duration: "",
+          category: "",
+          picked: "",
+        }}
+        onSubmit={async (values, { setErrors }) => {
           console.log("values from the form", values);
-          // const res = createProduct({
-          //   input: {
-          //     translations: [
-          //       {
-          //         languageCode: "en",
-          //         name: values.name,
-          //         slug: values.name,
-          //         description: "",
-          //       },
-          //     ],
-          //     facetValueIds: ["50"],
-          //   },
-          // });
-          // console.log("output of the product created", res);
+          const productInfo = await createProduct({
+            input: {
+              translations: [
+                {
+                  languageCode: "en",
+                  name: values.name,
+                  slug: values.name,
+                  description: "",
+                },
+              ],
+            },
+          });
+          const optionGroupInfo = await createProductOptionGroup({
+            input: {
+              code: "gender",
+              translations: [
+                {
+                  languageCode: "en",
+                  name: "Gender",
+                },
+              ],
+              options: [
+                {
+                  code: values.gender.toLowerCase(),
+                  translations: [
+                    {
+                      languageCode: "en",
+                      name: values.gender,
+                    },
+                  ],
+                },
+              ],
+            },
+          });
+          const addOptionGroupToProductInfo = await addOptionGroupToProduct({
+            productId: productInfo.data.createProduct.id,
+            optionGroupId: optionGroupInfo.data.createProductOptionGroup.id,
+          });
+          await createProductVariants({
+            input: [
+              {
+                productId: productInfo.data.createProduct.id,
+                price: values.price * 100,
+                sku: "2",
+                stockOnHand: 1000,
+                translations: [
+                  {
+                    languageCode: "en",
+                    name: values.name,
+                  },
+                ],
+                optionIds: [
+                  addOptionGroupToProductInfo.data.addOptionGroupToProduct
+                    .optionGroups[0].options[0].id,
+                ],
+                facetValueIds: [
+                  values.gender,
+                  values.category,
+                  values.staff,
+                  values.duration,
+                ],
+              },
+            ],
+          });
         }}
       >
-        <Form>
-          {/* <div id="recaptcha-container"></div> */}
-          <Text></Text>
-          <HStack>
-            {genderOptions.map((value) => {
-              const radio = getGenderRadioProps({ value });
-              console.log("radio props are", radio);
-              return (
-                <RadioCard key={"arre vah" + value} {...radio}>
-                  {value}
-                </RadioCard>
-              );
-            })}
-          </HStack>
-          <InputField name="name" placeholder="Hair Cut" label="Name" />
-          <InputField name="price" placeholder="200" label="Price" />
-          <Text>Duration</Text>
-          <HStack>
-            {timeOptions.map((value) => {
-              const radio = getTimeRadioProps({ value });
-              return (
-                <RadioCard key={value} {...radio}>
-                  {value}
-                </RadioCard>
-              );
-            })}
-          </HStack>
+        {({ values }) => (
+          <Form>
+            <RadioGroupControl name="gender" label="Gender">
+              {genderOptions.map(({ name, id }) => {
+                return (
+                  <Radio value={id} key={id}>
+                    {name}
+                  </Radio>
+                );
+              })}
+            </RadioGroupControl>
 
-          <InputField
-            name="Category"
-            placeholder="Select one or create one"
-            label="Category Name"
-          />
-          <HStack>
-            {categoryOptions.map((value) => {
-              const radio = getCategoryRadioProps({ value });
-              return (
-                <RadioCard key={value} {...radio}>
-                  {value}
-                </RadioCard>
-              );
-            })}
-          </HStack>
-          <Text>Select staff</Text>
-          <HStack>
-            {staffOptions.map((value) => {
-              const radio = getStaffRadioProps({ value });
-              return (
-                <RadioCard key={value} {...radio}>
-                  {value}
-                </RadioCard>
-              );
-            })}
-          </HStack>
-          <Button
-            mt={4}
-            // type="submit"
-            // backgroundColor="primary.300"
-            // color="white"
-          >
-            Cancel
-          </Button>
-          <Button
-            mt={4}
-            type="submit"
-            backgroundColor="primary.300"
-            color="white"
-          >
-            Save
-          </Button>
-        </Form>
+            <InputField name="name" placeholder="Hair Cut" label="Name" />
+            <InputField name="price" placeholder="200" label="Price" />
+
+            <RadioGroupControl name="duration" label="Duration">
+              {timeOptions.map(({ name, id }) => {
+                return (
+                  <Radio value={id} key={id}>
+                    {name}
+                  </Radio>
+                );
+              })}
+            </RadioGroupControl>
+
+            <RadioGroupControl name="category" label="Category">
+              {categoryOptions.map(({ name, id }) => {
+                return (
+                  <Radio value={id} key={id}>
+                    {name}
+                  </Radio>
+                );
+              })}
+            </RadioGroupControl>
+            <RadioGroupControl name="staff" label="Staff">
+              {staffOptions.map(({ name, id }) => {
+                return (
+                  <Radio value={id} key={id}>
+                    {name}
+                  </Radio>
+                );
+              })}
+            </RadioGroupControl>
+            <Button mt={4}>Cancel</Button>
+            <Button mt={4} type="submit" colorScheme="primary">
+              Save
+            </Button>
+          </Form>
+        )}
       </Formik>
     </Box>
   );

@@ -4459,6 +4459,23 @@ export type LogoutMutation = (
   ) }
 );
 
+export type GetFacetsQueryVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+
+export type GetFacetsQuery = (
+  { __typename?: 'Query' }
+  & { facet?: Maybe<(
+    { __typename?: 'Facet' }
+    & Pick<Facet, 'name'>
+    & { values: Array<(
+      { __typename?: 'FacetValue' }
+      & Pick<FacetValue, 'id' | 'name'>
+    )> }
+  )> }
+);
+
 export type GetFacetListQueryVariables = Exact<{
   options?: Maybe<FacetListOptions>;
 }>;
@@ -4832,6 +4849,21 @@ export const LogoutDocument = gql`
 
 export function useLogoutMutation() {
   return Urql.useMutation<LogoutMutation, LogoutMutationVariables>(LogoutDocument);
+};
+export const GetFacetsDocument = gql`
+    query GetFacets($id: ID!) {
+  facet(id: $id) {
+    name
+    values {
+      id
+      name
+    }
+  }
+}
+    `;
+
+export function useGetFacetsQuery(options: Omit<Urql.UseQueryArgs<GetFacetsQueryVariables>, 'query'> = {}) {
+  return Urql.useQuery<GetFacetsQuery>({ query: GetFacetsDocument, ...options });
 };
 export const GetFacetListDocument = gql`
     query GetFacetList($options: FacetListOptions) {

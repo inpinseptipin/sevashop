@@ -32,13 +32,34 @@ function useProvideAuth() {
     });
     // console.log("recaptcha is ", recaptcha);
     // console.log("captcha created");
-    if (!(window as any).OTPCredential) {
-      console.log("Feature Not Available");
-    } else {
-      console.log("Feature Available");
-    }
+
     if ("OTPCredential" in window) {
-      console.log("it is present");
+      console.log("feature available");
+      window.addEventListener("DOMContentLoaded", (e) => {
+        const input = document.querySelector(
+          'input[autocomplete="one-time-code"]'
+        );
+        if (!input) return;
+        const ac = new AbortController();
+        const form = input.closest("form");
+        if (form) {
+          form.addEventListener("submit", (e) => {
+            ac.abort();
+          });
+        }
+        navigator.credentials
+          .get({
+            otp: { transport: ["sms"] },
+            signal: ac.signal,
+          })
+          .then((otp) => {
+            input.value = otp.code;
+            if (form) form.submit();
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      });
     }
     firebase
       .auth()
