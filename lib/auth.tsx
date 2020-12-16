@@ -32,7 +32,14 @@ function useProvideAuth() {
     });
     // console.log("recaptcha is ", recaptcha);
     // console.log("captcha created");
-
+    if (!(window as any).OTPCredential) {
+      console.log("Feature Not Available");
+    } else {
+      console.log("Feature Available");
+    }
+    if ("OTPCredential" in window) {
+      console.log("it is present");
+    }
     firebase
       .auth()
       .signInWithPhoneNumber(phoneNumber, recaptcha)
