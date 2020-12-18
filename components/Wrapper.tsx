@@ -1,5 +1,6 @@
-import { Flex } from "@chakra-ui/react";
-import React from "react";
+import React from 'react';
+
+import { Flex } from '@chakra-ui/react';
 
 interface WrapperProps {
   variant?: "small" | "regular";
@@ -7,7 +8,7 @@ interface WrapperProps {
 
 export const Wrapper: React.FC<WrapperProps> = ({
   children,
-  variant = "regular",
+  variant = "small",
 }) => {
   return (
     <Flex
@@ -16,7 +17,7 @@ export const Wrapper: React.FC<WrapperProps> = ({
       maxW={variant === "regular" ? "800px" : "400px"}
       w="100%"
       // h="100%"
-      backgroundColor="#F0F0F0"
+      backgroundColor="background.50"
     >
       {children}
     </Flex>

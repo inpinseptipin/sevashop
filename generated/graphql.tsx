@@ -4256,6 +4256,135 @@ export type AssetFragment = (
   )> }
 );
 
+export type ChannelFragment = (
+  { __typename: 'Channel' }
+  & Pick<Channel, 'id' | 'createdAt' | 'updatedAt' | 'code' | 'token' | 'pricesIncludeTax' | 'currencyCode' | 'defaultLanguageCode'>
+  & { defaultShippingZone?: Maybe<(
+    { __typename: 'Zone' }
+    & Pick<Zone, 'id' | 'name'>
+  )>, defaultTaxZone?: Maybe<(
+    { __typename: 'Zone' }
+    & Pick<Zone, 'id' | 'name'>
+  )> }
+);
+
+type ErrorResult_MimeTypeError_Fragment = (
+  { __typename: 'MimeTypeError' }
+  & Pick<MimeTypeError, 'errorCode' | 'message'>
+);
+
+type ErrorResult_LanguageNotAvailableError_Fragment = (
+  { __typename: 'LanguageNotAvailableError' }
+  & Pick<LanguageNotAvailableError, 'errorCode' | 'message'>
+);
+
+type ErrorResult_ChannelDefaultLanguageError_Fragment = (
+  { __typename: 'ChannelDefaultLanguageError' }
+  & Pick<ChannelDefaultLanguageError, 'errorCode' | 'message'>
+);
+
+type ErrorResult_SettlePaymentError_Fragment = (
+  { __typename: 'SettlePaymentError' }
+  & Pick<SettlePaymentError, 'errorCode' | 'message'>
+);
+
+type ErrorResult_EmptyOrderLineSelectionError_Fragment = (
+  { __typename: 'EmptyOrderLineSelectionError' }
+  & Pick<EmptyOrderLineSelectionError, 'errorCode' | 'message'>
+);
+
+type ErrorResult_ItemsAlreadyFulfilledError_Fragment = (
+  { __typename: 'ItemsAlreadyFulfilledError' }
+  & Pick<ItemsAlreadyFulfilledError, 'errorCode' | 'message'>
+);
+
+type ErrorResult_InsufficientStockOnHandError_Fragment = (
+  { __typename: 'InsufficientStockOnHandError' }
+  & Pick<InsufficientStockOnHandError, 'errorCode' | 'message'>
+);
+
+type ErrorResult_MultipleOrderError_Fragment = (
+  { __typename: 'MultipleOrderError' }
+  & Pick<MultipleOrderError, 'errorCode' | 'message'>
+);
+
+type ErrorResult_CancelActiveOrderError_Fragment = (
+  { __typename: 'CancelActiveOrderError' }
+  & Pick<CancelActiveOrderError, 'errorCode' | 'message'>
+);
+
+type ErrorResult_PaymentOrderMismatchError_Fragment = (
+  { __typename: 'PaymentOrderMismatchError' }
+  & Pick<PaymentOrderMismatchError, 'errorCode' | 'message'>
+);
+
+type ErrorResult_RefundOrderStateError_Fragment = (
+  { __typename: 'RefundOrderStateError' }
+  & Pick<RefundOrderStateError, 'errorCode' | 'message'>
+);
+
+type ErrorResult_NothingToRefundError_Fragment = (
+  { __typename: 'NothingToRefundError' }
+  & Pick<NothingToRefundError, 'errorCode' | 'message'>
+);
+
+type ErrorResult_AlreadyRefundedError_Fragment = (
+  { __typename: 'AlreadyRefundedError' }
+  & Pick<AlreadyRefundedError, 'errorCode' | 'message'>
+);
+
+type ErrorResult_QuantityTooGreatError_Fragment = (
+  { __typename: 'QuantityTooGreatError' }
+  & Pick<QuantityTooGreatError, 'errorCode' | 'message'>
+);
+
+type ErrorResult_RefundStateTransitionError_Fragment = (
+  { __typename: 'RefundStateTransitionError' }
+  & Pick<RefundStateTransitionError, 'errorCode' | 'message'>
+);
+
+type ErrorResult_PaymentStateTransitionError_Fragment = (
+  { __typename: 'PaymentStateTransitionError' }
+  & Pick<PaymentStateTransitionError, 'errorCode' | 'message'>
+);
+
+type ErrorResult_FulfillmentStateTransitionError_Fragment = (
+  { __typename: 'FulfillmentStateTransitionError' }
+  & Pick<FulfillmentStateTransitionError, 'errorCode' | 'message'>
+);
+
+type ErrorResult_ProductOptionInUseError_Fragment = (
+  { __typename: 'ProductOptionInUseError' }
+  & Pick<ProductOptionInUseError, 'errorCode' | 'message'>
+);
+
+type ErrorResult_MissingConditionsError_Fragment = (
+  { __typename: 'MissingConditionsError' }
+  & Pick<MissingConditionsError, 'errorCode' | 'message'>
+);
+
+type ErrorResult_NativeAuthStrategyError_Fragment = (
+  { __typename: 'NativeAuthStrategyError' }
+  & Pick<NativeAuthStrategyError, 'errorCode' | 'message'>
+);
+
+type ErrorResult_InvalidCredentialsError_Fragment = (
+  { __typename: 'InvalidCredentialsError' }
+  & Pick<InvalidCredentialsError, 'errorCode' | 'message'>
+);
+
+type ErrorResult_OrderStateTransitionError_Fragment = (
+  { __typename: 'OrderStateTransitionError' }
+  & Pick<OrderStateTransitionError, 'errorCode' | 'message'>
+);
+
+type ErrorResult_EmailAddressConflictError_Fragment = (
+  { __typename: 'EmailAddressConflictError' }
+  & Pick<EmailAddressConflictError, 'errorCode' | 'message'>
+);
+
+export type ErrorResultFragment = ErrorResult_MimeTypeError_Fragment | ErrorResult_LanguageNotAvailableError_Fragment | ErrorResult_ChannelDefaultLanguageError_Fragment | ErrorResult_SettlePaymentError_Fragment | ErrorResult_EmptyOrderLineSelectionError_Fragment | ErrorResult_ItemsAlreadyFulfilledError_Fragment | ErrorResult_InsufficientStockOnHandError_Fragment | ErrorResult_MultipleOrderError_Fragment | ErrorResult_CancelActiveOrderError_Fragment | ErrorResult_PaymentOrderMismatchError_Fragment | ErrorResult_RefundOrderStateError_Fragment | ErrorResult_NothingToRefundError_Fragment | ErrorResult_AlreadyRefundedError_Fragment | ErrorResult_QuantityTooGreatError_Fragment | ErrorResult_RefundStateTransitionError_Fragment | ErrorResult_PaymentStateTransitionError_Fragment | ErrorResult_FulfillmentStateTransitionError_Fragment | ErrorResult_ProductOptionInUseError_Fragment | ErrorResult_MissingConditionsError_Fragment | ErrorResult_NativeAuthStrategyError_Fragment | ErrorResult_InvalidCredentialsError_Fragment | ErrorResult_OrderStateTransitionError_Fragment | ErrorResult_EmailAddressConflictError_Fragment;
+
 export type FacetValueFragment = (
   { __typename: 'FacetValue' }
   & Pick<FacetValue, 'id' | 'createdAt' | 'updatedAt' | 'languageCode' | 'code' | 'name'>
@@ -4398,6 +4527,22 @@ export type AddOptionGroupToProductMutation = (
   ) }
 );
 
+export type CreateChannelMutationVariables = Exact<{
+  input: CreateChannelInput;
+}>;
+
+
+export type CreateChannelMutation = (
+  { __typename?: 'Mutation' }
+  & { createChannel: (
+    { __typename: 'Channel' }
+    & ChannelFragment
+  ) | (
+    { __typename: 'LanguageNotAvailableError' }
+    & ErrorResult_LanguageNotAvailableError_Fragment
+  ) }
+);
+
 export type CreateProductMutationVariables = Exact<{
   input: CreateProductInput;
 }>;
@@ -4522,6 +4667,36 @@ export type ServicesQuery = (
   ) }
 );
 
+export const ChannelFragmentDoc = gql`
+    fragment Channel on Channel {
+  id
+  createdAt
+  updatedAt
+  code
+  token
+  pricesIncludeTax
+  currencyCode
+  defaultLanguageCode
+  defaultShippingZone {
+    id
+    name
+    __typename
+  }
+  defaultTaxZone {
+    id
+    name
+    __typename
+  }
+  __typename
+}
+    `;
+export const ErrorResultFragmentDoc = gql`
+    fragment ErrorResult on ErrorResult {
+  errorCode
+  message
+  __typename
+}
+    `;
 export const FacetValueFragmentDoc = gql`
     fragment FacetValue on FacetValue {
   id
@@ -4791,6 +4966,20 @@ export const AddOptionGroupToProductDocument = gql`
 
 export function useAddOptionGroupToProductMutation() {
   return Urql.useMutation<AddOptionGroupToProductMutation, AddOptionGroupToProductMutationVariables>(AddOptionGroupToProductDocument);
+};
+export const CreateChannelDocument = gql`
+    mutation CreateChannel($input: CreateChannelInput!) {
+  createChannel(input: $input) {
+    ...Channel
+    ...ErrorResult
+    __typename
+  }
+}
+    ${ChannelFragmentDoc}
+${ErrorResultFragmentDoc}`;
+
+export function useCreateChannelMutation() {
+  return Urql.useMutation<CreateChannelMutation, CreateChannelMutationVariables>(CreateChannelDocument);
 };
 export const CreateProductDocument = gql`
     mutation CreateProduct($input: CreateProductInput!) {

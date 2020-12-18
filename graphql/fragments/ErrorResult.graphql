@@ -1,0 +1,5 @@
+fragment ErrorResult on ErrorResult {
+  errorCode
+  message
+  __typename
+}

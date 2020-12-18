@@ -1,4 +1,8 @@
-import { SearchIcon } from "@chakra-ui/icons";
+import React from 'react';
+
+import { useRouter } from 'next/router';
+
+import { SearchIcon } from '@chakra-ui/icons';
 import {
   Button,
   Flex,
@@ -6,11 +10,10 @@ import {
   Input,
   InputGroup,
   InputLeftElement,
-} from "@chakra-ui/react";
-import { useRouter } from "next/router";
-import React from "react";
-import { GoBackIcon } from "../Icons";
-import { ServiceList } from "./ServiceList";
+} from '@chakra-ui/react';
+
+import { GoBackIcon } from '../Icons';
+import { ServiceList } from './ServiceList';
 
 interface ServicesProps {}
 

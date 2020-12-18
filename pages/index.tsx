@@ -1,7 +1,12 @@
-import { Services } from "@/components/Services/Services";
-import { Settings } from "@/components/Settings";
-import { Share } from "@/components/Share";
-import { useAuth } from "@/lib/auth";
+import React from 'react';
+
+import { useRouter } from 'next/router';
+
+import { Services } from '@/components/Services/Services';
+import { Settings } from '@/components/Settings';
+import { Share } from '@/components/Share';
+import { Wrapper } from '@/components/Wrapper';
+import { useAuth } from '@/lib/auth';
 import {
   Box,
   chakra,
@@ -15,16 +20,15 @@ import {
   Text,
   useStyles,
   useTab,
-} from "@chakra-ui/react";
-import { useRouter } from "next/router";
-import React from "react";
-import { Bookings } from "../components/Bookings";
+} from '@chakra-ui/react';
+
+import { Bookings } from '../components/Bookings';
 import {
   BookingsIcon,
   ServicesIcon,
   SettingsIcon,
   WhatsAppIcon,
-} from "../components/Icons";
+} from '../components/Icons';
 
 // 1. Reuse the styles for the Tab
 // const StyledTab = chakra("button", { themeKey: "Tabs.Tab" });
@@ -85,44 +89,46 @@ const Home: React.FC<{}> = ({}) => {
 
   // console.log("printing from dashboard", auth.userAll);
   return (
-    <Flex direction="column" backgroundColor="gray.50">
-      <Tabs isFitted variant="unstyled" width="100%">
-        <TabPanels>
-          <TabPanel p={0}>
-            <Bookings />
-          </TabPanel>
-          <TabPanel p={0}>
-            <Services />
-          </TabPanel>
-          <TabPanel p={0}>
-            <Share />
-          </TabPanel>
-          <TabPanel>
-            <Settings user={auth.userAll} />
-          </TabPanel>
-        </TabPanels>
-        <Box boxShadow="2xl" width="100%" position="fixed" bottom="0">
-          <TabList>
-            <CustomTab>
-              <BookingsIcon boxSize="28px" />
-              <Text fontSize="sm">Bookings</Text>
-            </CustomTab>
-            <CustomTab>
-              <ServicesIcon boxSize="28px" />
-              <Text fontSize="sm">Services</Text>
-            </CustomTab>
-            <CustomTab>
-              <WhatsAppIcon boxSize="28px" />
-              <Text fontSize="sm">Share</Text>
-            </CustomTab>
-            <CustomTab>
-              <SettingsIcon boxSize="28px" />
-              <Text fontSize="sm">Settings</Text>
-            </CustomTab>
-          </TabList>
-        </Box>
-      </Tabs>
-    </Flex>
+    <Wrapper>
+      <Flex direction="column">
+        <Tabs isFitted variant="unstyled" maxW="800px">
+          <TabPanels>
+            <TabPanel p={0}>
+              <Bookings />
+            </TabPanel>
+            <TabPanel p={0}>
+              <Services />
+            </TabPanel>
+            <TabPanel p={0}>
+              <Share />
+            </TabPanel>
+            <TabPanel>
+              <Settings user={auth.userAll} />
+            </TabPanel>
+          </TabPanels>
+          <Box boxShadow="2xl" width="100%" position="fixed" bottom="0">
+            <TabList>
+              <CustomTab>
+                <BookingsIcon boxSize="28px" />
+                <Text fontSize="sm">Bookings</Text>
+              </CustomTab>
+              <CustomTab>
+                <ServicesIcon boxSize="28px" />
+                <Text fontSize="sm">Services</Text>
+              </CustomTab>
+              <CustomTab>
+                <WhatsAppIcon boxSize="28px" />
+                <Text fontSize="sm">Share</Text>
+              </CustomTab>
+              <CustomTab>
+                <SettingsIcon boxSize="28px" />
+                <Text fontSize="sm">Settings</Text>
+              </CustomTab>
+            </TabList>
+          </Box>
+        </Tabs>
+      </Flex>
+    </Wrapper>
   );
 };
 

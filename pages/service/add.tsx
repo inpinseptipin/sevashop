@@ -16,6 +16,7 @@ import {
 
 import { GoBackIcon } from '@/components/Icons';
 import { InputField } from '@/components/InputField';
+import { Wrapper } from '@/components/Wrapper';
 import {
   Box,
   Button,
@@ -56,148 +57,151 @@ export const Add: React.FC<addProps> = ({}) => {
   }));
 
   return (
-    <Box p="2">
-      <Flex
-        zIndex={1}
-        boxShadow="lg"
-        p="4"
-        align="center"
-        position="sticky"
-        top={0}
-        backgroundColor="white"
-      >
-        <GoBackIcon boxSize="32px" />
-        <Heading ml="4">Add Service</Heading>
-      </Flex>
-      <Formik
-        initialValues={{
-          name: "",
-          price: 0,
-          gender: "",
-          staff: "",
-          duration: "",
-          category: "",
-          picked: "",
-        }}
-        onSubmit={async (values, { setErrors }) => {
-          // console.log("values from the form", values);
-          const productInfo = await createProduct({
-            input: {
-              translations: [
-                {
-                  languageCode: LanguageCode.En,
-                  name: values.name,
-                  slug: values.name,
-                  description: "",
-                },
-              ],
-            },
-          });
-          const optionGroupInfo = await createProductOptionGroup({
-            input: {
-              code: "gender",
-              translations: [
-                {
-                  languageCode: LanguageCode.En,
-                  name: "Gender",
-                },
-              ],
-              options: [
-                {
-                  code: values.gender.toLowerCase(),
-                  translations: [
-                    {
-                      languageCode: LanguageCode.En,
-                      name: values.gender,
-                    },
-                  ],
-                },
-              ],
-            },
-          });
-          const addOptionGroupToProductInfo = await addOptionGroupToProduct({
-            productId: productInfo.data.createProduct.id,
-            optionGroupId: optionGroupInfo.data.createProductOptionGroup.id,
-          });
-          await createProductVariants({
-            input: [
-              {
-                productId: productInfo.data.createProduct.id,
-                price: values.price * 100,
-                sku: "2",
-                stockOnHand: 1000,
+    <Wrapper>
+      <Box p="2">
+        <Flex
+          zIndex={1}
+          boxShadow="lg"
+          w="100%"
+          p="4"
+          align="center"
+          position="sticky"
+          top={0}
+          backgroundColor="white"
+        >
+          <GoBackIcon boxSize="32px" />
+          <Heading ml="4">Add Service</Heading>
+        </Flex>
+        <Formik
+          initialValues={{
+            name: "",
+            price: 0,
+            gender: "",
+            staff: "",
+            duration: "",
+            category: "",
+            picked: "",
+          }}
+          onSubmit={async (values, { setErrors }) => {
+            // console.log("values from the form", values);
+            const productInfo = await createProduct({
+              input: {
                 translations: [
                   {
                     languageCode: LanguageCode.En,
                     name: values.name,
+                    slug: values.name,
+                    description: "",
                   },
                 ],
-                optionIds: [
-                  addOptionGroupToProductInfo.data.addOptionGroupToProduct
-                    .optionGroups[0].options[0].id,
+              },
+            });
+            const optionGroupInfo = await createProductOptionGroup({
+              input: {
+                code: "gender",
+                translations: [
+                  {
+                    languageCode: LanguageCode.En,
+                    name: "Gender",
+                  },
                 ],
-                facetValueIds: [
-                  values.gender,
-                  values.category,
-                  values.staff,
-                  values.duration,
+                options: [
+                  {
+                    code: values.gender.toLowerCase(),
+                    translations: [
+                      {
+                        languageCode: LanguageCode.En,
+                        name: values.gender,
+                      },
+                    ],
+                  },
                 ],
               },
-            ],
-          });
-        }}
-      >
-        {({ values }) => (
-          <Form>
-            <RadioGroupControl name="gender" label="Gender">
-              {genderOptions.map(({ name, id }) => {
-                return (
-                  <Radio value={id} key={id}>
-                    {name}
-                  </Radio>
-                );
-              })}
-            </RadioGroupControl>
+            });
+            const addOptionGroupToProductInfo = await addOptionGroupToProduct({
+              productId: productInfo.data.createProduct.id,
+              optionGroupId: optionGroupInfo.data.createProductOptionGroup.id,
+            });
+            await createProductVariants({
+              input: [
+                {
+                  productId: productInfo.data.createProduct.id,
+                  price: values.price * 100,
+                  sku: "2",
+                  stockOnHand: 1000,
+                  translations: [
+                    {
+                      languageCode: LanguageCode.En,
+                      name: values.name,
+                    },
+                  ],
+                  optionIds: [
+                    addOptionGroupToProductInfo.data.addOptionGroupToProduct
+                      .optionGroups[0].options[0].id,
+                  ],
+                  facetValueIds: [
+                    values.gender,
+                    values.category,
+                    values.staff,
+                    values.duration,
+                  ],
+                },
+              ],
+            });
+          }}
+        >
+          {({ values }) => (
+            <Form>
+              <RadioGroupControl name="gender" label="Gender">
+                {genderOptions.map(({ name, id }) => {
+                  return (
+                    <Radio value={id} key={id}>
+                      {name}
+                    </Radio>
+                  );
+                })}
+              </RadioGroupControl>
 
-            <InputField name="name" placeholder="Hair Cut" label="Name" />
-            <InputField name="price" placeholder="200" label="Price" />
+              <InputField name="name" placeholder="Hair Cut" label="Name" />
+              <InputField name="price" placeholder="200" label="Price" />
 
-            <RadioGroupControl name="duration" label="Duration">
-              {timeOptions.map(({ name, id }) => {
-                return (
-                  <Radio value={id} key={id}>
-                    {name}
-                  </Radio>
-                );
-              })}
-            </RadioGroupControl>
+              <RadioGroupControl name="duration" label="Duration">
+                {timeOptions.map(({ name, id }) => {
+                  return (
+                    <Radio value={id} key={id}>
+                      {name}
+                    </Radio>
+                  );
+                })}
+              </RadioGroupControl>
 
-            <RadioGroupControl name="category" label="Category">
-              {categoryOptions.map(({ name, id }) => {
-                return (
-                  <Radio value={id} key={id}>
-                    {name}
-                  </Radio>
-                );
-              })}
-            </RadioGroupControl>
-            <RadioGroupControl name="staff" label="Staff">
-              {staffOptions.map(({ name, id }) => {
-                return (
-                  <Radio value={id} key={id}>
-                    {name}
-                  </Radio>
-                );
-              })}
-            </RadioGroupControl>
-            <Button mt={4}>Cancel</Button>
-            <Button mt={4} type="submit" colorScheme="primary">
-              Save
-            </Button>
-          </Form>
-        )}
-      </Formik>
-    </Box>
+              <RadioGroupControl name="category" label="Category">
+                {categoryOptions.map(({ name, id }) => {
+                  return (
+                    <Radio value={id} key={id}>
+                      {name}
+                    </Radio>
+                  );
+                })}
+              </RadioGroupControl>
+              <RadioGroupControl name="staff" label="Staff">
+                {staffOptions.map(({ name, id }) => {
+                  return (
+                    <Radio value={id} key={id}>
+                      {name}
+                    </Radio>
+                  );
+                })}
+              </RadioGroupControl>
+              <Button mt={4}>Cancel</Button>
+              <Button mt={4} type="submit" colorScheme="primary">
+                Save
+              </Button>
+            </Form>
+          )}
+        </Formik>
+      </Box>
+    </Wrapper>
   );
 };
 

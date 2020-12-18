@@ -1,0 +1,7 @@
+mutation CreateChannel($input: CreateChannelInput!) {
+  createChannel(input: $input) {
+    ...Channel
+    ...ErrorResult
+    __typename
+  }
+}

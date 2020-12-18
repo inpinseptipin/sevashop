@@ -1,0 +1,21 @@
+fragment Channel on Channel {
+  id
+  createdAt
+  updatedAt
+  code
+  token
+  pricesIncludeTax
+  currencyCode
+  defaultLanguageCode
+  defaultShippingZone {
+    id
+    name
+    __typename
+  }
+  defaultTaxZone {
+    id
+    name
+    __typename
+  }
+  __typename
+}

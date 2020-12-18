@@ -1,12 +1,17 @@
-import theme from "@/styles/theme";
-import { ChakraProvider } from "@chakra-ui/react";
-import "focus-visible/dist/focus-visible";
-import { AuthProvider } from "@/lib/auth";
-import { createClient, Provider } from "urql";
+import 'focus-visible/dist/focus-visible';
+
+import {
+  createClient,
+  Provider,
+} from 'urql';
+
+import { AuthProvider } from '@/lib/auth';
+import theme from '@/styles/theme';
+import { ChakraProvider } from '@chakra-ui/react';
+
 const client = createClient({
   url:
     "https://server.sevashop.tech/admin-api?vendure-token=wdb0yw5brs4bl35wto1i",
-  // url: "http://localhost:4000/admin-api?vendure-token=wdb0yw5brs4bl35wto1i",
   fetchOptions: {
     credentials: "include",
   },
