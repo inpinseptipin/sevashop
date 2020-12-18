@@ -5,13 +5,9 @@ import React, {
   useState,
 } from 'react';
 
-import { useLoginMutation } from 'generated/graphql';
 import { useRouter } from 'next/router';
 
-import {
-  createUser,
-  getUser,
-} from './db';
+import { createUser } from './db';
 import firebase from './firebase';
 
 const authContext = createContext(null);
@@ -29,35 +25,24 @@ function useProvideAuth() {
   const router = useRouter();
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [userAll, setUserAll] = useState(null);
-  const [, gqlLogin] = useLoginMutation();
 
-  // console.log(user);
   const signinWithPhone = (phoneNumber: string, setBody) => {
     setLoading(true);
     var phoneNumber = `+91${phoneNumber}`;
-    //If you want to make the recaptcha invisible
     var recaptcha = new firebase.auth.RecaptchaVerifier("recaptcha-container", {
       size: "invisible",
     });
-    // console.log("recaptcha is ", recaptcha);
-    // console.log("captcha created");
 
     firebase
       .auth()
       .signInWithPhoneNumber(phoneNumber, recaptcha)
       .then(function (confirmationResult) {
-        // SMS sent. Prompt user to type the code from the message, then sign the
         (window as any).confirmationResult = confirmationResult;
 
-        // window.confirmationResult = confirmationResult;
-        // console.log((window as any).confirmationResult);
         setLoading(false);
         setBody("screen2");
       })
       .catch(function (error) {
-        // Error; SMS not sent
-        // ...
         console.log(error);
       });
   };
@@ -68,9 +53,6 @@ function useProvideAuth() {
     (window as any).confirmationResult
       .confirm(code)
       .then(async function (result) {
-        // User signed in successfully.
-        // var user = result.user;
-        // console.log(user);
         handleUser(result.user);
         console.log("result obtained is", result.user);
 
@@ -79,16 +61,8 @@ function useProvideAuth() {
         } else {
           router.push("/register");
         }
-        // console.log("logged user state is set!!");
-        // console.log(user);
-        // return true;
-        // router.push("/");
-        // ...
       })
       .catch(function (error) {
-        // User couldn't sign in (bad verification code?)
-        // ...
-        // return false;
         toast({
           title: "Incorrect OTP",
           description: "Please try again",
@@ -124,23 +98,8 @@ function useProvideAuth() {
   const handleUser = async (rawUser) => {
     if (rawUser) {
       const user = await formatUser(rawUser);
-      // const user = rawUser;
-      // console.log(rawUser);
-      // console.log("why is this being called");
-      // if (user) {
-      // console.log(user);
-      // const logindata = useSWR(LOGIN_QUERY, fetcher);
-      // const serverLoginRes = await gqlLogin({
-      //   uname: "superadmin",
-      //   pass: "superadmin",
-      // });
-      // console.log("login response", serverLoginRes);
       createUser(user.uid, user);
-      const userAlt = await getUser(user.uid);
-      // console.log(user);
-      // }
       setUser(user);
-      setUserAll(userAlt);
       setLoading(false);
       return user;
     } else {
@@ -160,7 +119,7 @@ function useProvideAuth() {
 
   return {
     user,
-    userAll,
+    // userAll,
     signinWithGithub,
     signinWithPhone,
     verifyPhone,
@@ -170,14 +129,11 @@ function useProvideAuth() {
   };
 }
 const formatUser = async (user) => {
-  // console.log("what i have received", user);
   return {
     uid: user.uid,
     email: user.email,
     name: user.displayName,
     provider: user.providerData[0].providerId,
     phoneNumber: user.phoneNumber,
-    // salonName: "aur kuch",
-    // salonLocation: "kuch aur",
   };
 };

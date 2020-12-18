@@ -62,7 +62,7 @@ const CustomTab = React.forwardRef((props: any, ref) => {
 const Home: React.FC<{}> = ({}) => {
   const router = useRouter();
   const auth = useAuth();
-  if (!auth.userAll) {
+  if (!auth.user) {
     return (
       <Flex direction="column" height="100vh" justify="center" p="4">
         <Skeleton m="2" height="40px" />
@@ -103,7 +103,7 @@ const Home: React.FC<{}> = ({}) => {
               <Share />
             </TabPanel>
             <TabPanel>
-              <Settings user={auth.userAll} />
+              <Settings />
             </TabPanel>
           </TabPanels>
           <Box boxShadow="2xl" width="100%" position="fixed" bottom="0">
