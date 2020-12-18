@@ -1,29 +1,29 @@
-import { GoBackIcon } from "@/components/Icons";
-import { InputField } from "@/components/InputField";
+import React from 'react';
+
 import {
-  Box,
-  Button,
-  Flex,
-  Heading,
-  HStack,
-  Radio,
-  RadioGroup,
-  Skeleton,
-  Text,
-  useRadioGroup,
-} from "@chakra-ui/react";
-import { Form, Formik } from "formik";
-import { RadioGroupControl } from "formik-chakra-ui";
+  Form,
+  Formik,
+} from 'formik';
+import { RadioGroupControl } from 'formik-chakra-ui';
 import {
-  CreateProductOptionGroupDocument,
+  LanguageCode,
   useAddOptionGroupToProductMutation,
   useCreateProductMutation,
   useCreateProductOptionGroupMutation,
   useCreateProductVariantsMutation,
   useGetFacetListQuery,
-} from "generated/graphql";
-import React from "react";
-import { RadioCard } from "../../components/RadioCard";
+} from 'generated/graphql';
+
+import { GoBackIcon } from '@/components/Icons';
+import { InputField } from '@/components/InputField';
+import {
+  Box,
+  Button,
+  Flex,
+  Heading,
+  Radio,
+  Skeleton,
+} from '@chakra-ui/react';
 
 interface addProps {}
 export const Add: React.FC<addProps> = ({}) => {
@@ -80,12 +80,12 @@ export const Add: React.FC<addProps> = ({}) => {
           picked: "",
         }}
         onSubmit={async (values, { setErrors }) => {
-          console.log("values from the form", values);
+          // console.log("values from the form", values);
           const productInfo = await createProduct({
             input: {
               translations: [
                 {
-                  languageCode: "en",
+                  languageCode: LanguageCode.En,
                   name: values.name,
                   slug: values.name,
                   description: "",
@@ -98,7 +98,7 @@ export const Add: React.FC<addProps> = ({}) => {
               code: "gender",
               translations: [
                 {
-                  languageCode: "en",
+                  languageCode: LanguageCode.En,
                   name: "Gender",
                 },
               ],
@@ -107,7 +107,7 @@ export const Add: React.FC<addProps> = ({}) => {
                   code: values.gender.toLowerCase(),
                   translations: [
                     {
-                      languageCode: "en",
+                      languageCode: LanguageCode.En,
                       name: values.gender,
                     },
                   ],
@@ -128,7 +128,7 @@ export const Add: React.FC<addProps> = ({}) => {
                 stockOnHand: 1000,
                 translations: [
                   {
-                    languageCode: "en",
+                    languageCode: LanguageCode.En,
                     name: values.name,
                   },
                 ],

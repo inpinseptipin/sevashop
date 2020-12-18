@@ -1,9 +1,19 @@
-import { useToast } from "@chakra-ui/react";
-import { useLoginMutation } from "generated/graphql";
-import { useRouter } from "next/router";
-import React, { useState, useEffect, useContext, createContext } from "react";
-import { createUser, getUser } from "./db";
-import firebase from "./firebase";
+import React, {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+} from 'react';
+
+import { useLoginMutation } from 'generated/graphql';
+import { useRouter } from 'next/router';
+
+import {
+  createUser,
+  getUser,
+} from './db';
+import firebase from './firebase';
+
 const authContext = createContext(null);
 
 export function AuthProvider({ children }) {
@@ -33,34 +43,6 @@ function useProvideAuth() {
     // console.log("recaptcha is ", recaptcha);
     // console.log("captcha created");
 
-    if ("OTPCredential" in window) {
-      console.log("feature available");
-      window.addEventListener("DOMContentLoaded", (e) => {
-        const input = document.querySelector(
-          'input[autocomplete="one-time-code"]'
-        );
-        if (!input) return;
-        const ac = new AbortController();
-        const form = input.closest("form");
-        if (form) {
-          form.addEventListener("submit", (e) => {
-            ac.abort();
-          });
-        }
-        navigator.credentials
-          .get({
-            otp: { transport: ["sms"] },
-            signal: ac.signal,
-          })
-          .then((otp) => {
-            input.value = otp.code;
-            if (form) form.submit();
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-      });
-    }
     firebase
       .auth()
       .signInWithPhoneNumber(phoneNumber, recaptcha)
@@ -148,10 +130,10 @@ function useProvideAuth() {
       // if (user) {
       // console.log(user);
       // const logindata = useSWR(LOGIN_QUERY, fetcher);
-      const serverLoginRes = await gqlLogin({
-        uname: "superadmin",
-        pass: "superadmin",
-      });
+      // const serverLoginRes = await gqlLogin({
+      //   uname: "superadmin",
+      //   pass: "superadmin",
+      // });
       // console.log("login response", serverLoginRes);
       createUser(user.uid, user);
       const userAlt = await getUser(user.uid);
