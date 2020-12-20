@@ -1,3 +1,7 @@
+import React from 'react';
+
+import { useServicesQuery } from 'generated/graphql';
+
 import {
   Accordion,
   AccordionButton,
@@ -6,18 +10,28 @@ import {
   AccordionPanel,
   Box,
   Skeleton,
-} from "@chakra-ui/react";
-import { useServicesQuery } from "generated/graphql";
-import React from "react";
-import { ServiceItem } from "./ServiceItem";
+} from '@chakra-ui/react';
+
+import { ServiceItem } from './ServiceItem';
 
 // interface MenProps {}
 
 export const ServiceList = ({ gender }) => {
+  // const [{ data, fetching }] = useServicesQuery({
+  //   context: {
+  //     fetchOptions: {
+  //       headers: {
+  //         "vendure-token": "wdb0yw5brs4bl35wto1i",
+  //       },
+  //     },
+  //   },
+  // });
   const [{ data, fetching }] = useServicesQuery();
   if (fetching) {
     return <Skeleton m="2" height="40px" />;
   }
+  console.log("data is", data);
+  return "Loading";
   // if (!services) return "...Loading";
   function checkGender(item) {
     return (

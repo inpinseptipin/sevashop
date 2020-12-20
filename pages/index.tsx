@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { withUrqlClient } from 'next-urql';
 import { useRouter } from 'next/router';
 
 import { Services } from '@/components/Services/Services';
@@ -7,6 +8,7 @@ import { Settings } from '@/components/Settings';
 import { Share } from '@/components/Share';
 import { Wrapper } from '@/components/Wrapper';
 import { useAuth } from '@/lib/auth';
+import { createUrqlClient } from '@/utils/createUrqlClient';
 import {
   Box,
   chakra,
@@ -132,4 +134,4 @@ const Home: React.FC<{}> = ({}) => {
   );
 };
 
-export default Home;
+export default withUrqlClient(createUrqlClient, { ssr: false })(Home);
