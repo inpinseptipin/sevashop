@@ -1,0 +1,6 @@
+mutation CreateCollection($input: CreateCollectionInput!) {
+  createCollection(input: $input) {
+    ...Collection
+    __typename
+  }
+}

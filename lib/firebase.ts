@@ -1,7 +1,8 @@
-import firebase from "firebase/app";
-import "firebase/auth";
-import "firebase/firestore";
-import "firebase/functions";
+import 'firebase/auth';
+import 'firebase/firestore';
+import 'firebase/functions';
+
+import firebase from 'firebase/app';
 
 export const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -16,9 +17,6 @@ if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig);
 }
 
-console.log(
-  firebase.app.name ? "Firebase Mode Activated!" : "Firebase not working :("
-);
 export default firebase;
 // const app = firebase.app();
 // export const auth = firebase.auth();

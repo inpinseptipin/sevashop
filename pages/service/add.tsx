@@ -13,10 +13,13 @@ import {
   useCreateProductVariantsMutation,
   useGetFacetListQuery,
 } from 'generated/graphql';
+import { withUrqlClient } from 'next-urql';
+import { useRouter } from 'next/router';
 
 import { GoBackIcon } from '@/components/Icons';
 import { InputField } from '@/components/InputField';
 import { Wrapper } from '@/components/Wrapper';
+import { createUrqlClient } from '@/utils/createUrqlClient';
 import {
   Box,
   Button,
@@ -24,10 +27,13 @@ import {
   Heading,
   Radio,
   Skeleton,
+  useToast,
 } from '@chakra-ui/react';
 
 interface addProps {}
 export const Add: React.FC<addProps> = ({}) => {
+  const router = useRouter();
+  const toast = useToast();
   const [{ data: facetlist, fetching }] = useGetFacetListQuery();
 
   const [, createProduct] = useCreateProductMutation();
@@ -83,7 +89,6 @@ export const Add: React.FC<addProps> = ({}) => {
             picked: "",
           }}
           onSubmit={async (values, { setErrors }) => {
-            // console.log("values from the form", values);
             const productInfo = await createProduct({
               input: {
                 translations: [
@@ -148,9 +153,18 @@ export const Add: React.FC<addProps> = ({}) => {
                 },
               ],
             });
+            toast({
+              title: "Service Added",
+              description: "Taking you back",
+              status: "success",
+              duration: 2000,
+              isClosable: true,
+            });
+
+            router.push("/");
           }}
         >
-          {({ values }) => (
+          {({ values, isSubmitting }) => (
             <Form>
               <RadioGroupControl name="gender" label="Gender">
                 {genderOptions.map(({ name, id }) => {
@@ -194,7 +208,12 @@ export const Add: React.FC<addProps> = ({}) => {
                 })}
               </RadioGroupControl>
               <Button mt={4}>Cancel</Button>
-              <Button mt={4} type="submit" colorScheme="primary">
+              <Button
+                mt={4}
+                type="submit"
+                colorScheme="primary"
+                isLoading={isSubmitting}
+              >
                 Save
               </Button>
             </Form>
@@ -205,4 +224,4 @@ export const Add: React.FC<addProps> = ({}) => {
   );
 };
 
-export default Add;
+export default withUrqlClient(createUrqlClient, { ssr: false })(Add);

@@ -10,6 +10,7 @@ import {
   AccordionPanel,
   Box,
   Skeleton,
+  Text,
 } from '@chakra-ui/react';
 
 import { ServiceItem } from './ServiceItem';
@@ -17,28 +18,17 @@ import { ServiceItem } from './ServiceItem';
 // interface MenProps {}
 
 export const ServiceList = ({ gender }) => {
-  // const [{ data, fetching }] = useServicesQuery({
-  //   context: {
-  //     fetchOptions: {
-  //       headers: {
-  //         "vendure-token": "wdb0yw5brs4bl35wto1i",
-  //       },
-  //     },
-  //   },
-  // });
   const [{ data, fetching }] = useServicesQuery();
   if (fetching) {
     return <Skeleton m="2" height="40px" />;
   }
-  console.log("data is", data);
-  return "Loading";
-  // if (!services) return "...Loading";
   function checkGender(item) {
     return (
       item.facetValues[0].name === gender || item.facetValues[1].name === gender
     );
   }
-  // console.log(services);
+  if (!data) return <Text>No data!</Text>;
+  console.log(data);
   return (
     <Accordion defaultIndex={[0]} allowMultiple m="2">
       {data.collections.items.map((collection) => (

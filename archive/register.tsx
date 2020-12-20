@@ -8,12 +8,17 @@ import {
   CurrencyCode,
   LanguageCode,
   useCreateChannelMutation,
+  useCreateCollectionMutation,
+  useGetFacetListQuery,
 } from 'generated/graphql';
+import { withUrqlClient } from 'next-urql';
 import { useRouter } from 'next/router';
 
 import { InputField } from '@/components/InputField';
+import { Wrapper } from '@/components/Wrapper';
 import { useAuth } from '@/lib/auth';
 import { createUser } from '@/lib/db';
+import { setToken } from '@/utils/token';
 import {
   Button,
   Flex,
@@ -28,7 +33,8 @@ export const Register: React.FC<registerProps> = ({}) => {
   const auth = useAuth();
   let token = "";
   const [, createChannel] = useCreateChannelMutation();
-
+  const [, createCollection] = useCreateCollectionMutation();
+  const [{ data: facetlist, fetching }] = useGetFacetListQuery();
   let screen1 = (
     <Flex direction="column" p="4">
       <Heading mb="2">Enter your salon name</Heading>
@@ -37,7 +43,6 @@ export const Register: React.FC<registerProps> = ({}) => {
         initialValues={{ salonname: "" }}
         onSubmit={(values, { setErrors }) => {
           token = values.salonname.replace(/\s+/g, "-").toLowerCase();
-          console.log("token is", token);
           createChannel({
             input: {
               code: values.salonname,
@@ -51,9 +56,51 @@ export const Register: React.FC<registerProps> = ({}) => {
           });
           createUser(auth.user.uid, {
             salonName: values.salonname,
-            token: token,
+            channelToken: token,
           });
-          setBody("screen2");
+          setToken(token);
+          const categoryOptions = facetlist.facets.items[1].values.map(
+            (value) => ({
+              name: value.name,
+              id: value.id,
+            })
+          );
+          console.log(categoryOptions);
+
+          categoryOptions.map((value) =>
+            createCollection(
+              {
+                input: {
+                  translations: [
+                    {
+                      languageCode: LanguageCode.En,
+                      name: value.name,
+                      slug: value.name,
+                      description: "",
+                    },
+                  ],
+                  filters: [
+                    {
+                      code: "facet-value-filter",
+                      arguments: [
+                        {
+                          name: "facetValueIds",
+                          value: `["${value.id}"]`,
+                        },
+                        {
+                          name: "containsAny",
+                          value: "true",
+                        },
+                      ],
+                    },
+                  ],
+                },
+              },
+              memo
+            )
+          );
+
+          // setBody("screen2");
         }}
       >
         <Form>
@@ -110,9 +157,12 @@ export const Register: React.FC<registerProps> = ({}) => {
     </Flex>
   );
   const [body, setBody] = useState("screen1");
-  return (
-    <Flex direction="column">{body === "screen1" ? screen1 : screen2}</Flex>
-  );
+  return <Wrapper>{body === "screen1" ? screen1 : screen2}</Wrapper>;
 };
 
-export default Register;
+export default withUrqlClient(
+  (_ssrExchange, ctx) => ({
+    url: `https://server.sevashop.tech/admin-api`,
+  }),
+  { ssr: false }
+)(Register);

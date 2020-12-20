@@ -74,22 +74,6 @@ const Home: React.FC<{}> = ({}) => {
       </Flex>
     );
   }
-  // const [user, setUser] = useState(null);
-  // setUser(getUser(auth.user.id));
-
-  // console.log(auth);
-  // const user = async () => {
-  //   return await getUser(auth.user.uid);
-  // };
-  // const user = getUser(auth.user.uid);
-  // getUser(auth.user.uid).then((success, err) => {
-  //   if (err) {
-  //     console.error(err);
-  //   }
-  //   console.log("this is success", success);
-  // });
-
-  // console.log("printing from dashboard", auth.userAll);
   return (
     <Wrapper>
       <Flex direction="column">

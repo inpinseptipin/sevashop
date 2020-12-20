@@ -4268,6 +4268,39 @@ export type ChannelFragment = (
   )> }
 );
 
+export type CollectionFragment = (
+  { __typename: 'Collection' }
+  & Pick<Collection, 'id' | 'createdAt' | 'updatedAt' | 'name' | 'slug' | 'description' | 'isPrivate' | 'languageCode'>
+  & { featuredAsset?: Maybe<(
+    { __typename: 'Asset' }
+    & AssetFragment
+  )>, assets: Array<(
+    { __typename: 'Asset' }
+    & AssetFragment
+  )>, filters: Array<(
+    { __typename: 'ConfigurableOperation' }
+    & ConfigurableOperationFragment
+  )>, translations: Array<(
+    { __typename: 'CollectionTranslation' }
+    & Pick<CollectionTranslation, 'id' | 'languageCode' | 'name' | 'slug' | 'description'>
+  )>, parent?: Maybe<(
+    { __typename: 'Collection' }
+    & Pick<Collection, 'id' | 'name'>
+  )>, children?: Maybe<Array<(
+    { __typename: 'Collection' }
+    & Pick<Collection, 'id' | 'name'>
+  )>> }
+);
+
+export type ConfigurableOperationFragment = (
+  { __typename: 'ConfigurableOperation' }
+  & Pick<ConfigurableOperation, 'code'>
+  & { args: Array<(
+    { __typename: 'ConfigArg' }
+    & Pick<ConfigArg, 'name' | 'value'>
+  )> }
+);
+
 type ErrorResult_MimeTypeError_Fragment = (
   { __typename: 'MimeTypeError' }
   & Pick<MimeTypeError, 'errorCode' | 'message'>
@@ -4543,6 +4576,19 @@ export type CreateChannelMutation = (
   ) }
 );
 
+export type CreateCollectionMutationVariables = Exact<{
+  input: CreateCollectionInput;
+}>;
+
+
+export type CreateCollectionMutation = (
+  { __typename?: 'Mutation' }
+  & { createCollection: (
+    { __typename: 'Collection' }
+    & CollectionFragment
+  ) }
+);
+
 export type CreateProductMutationVariables = Exact<{
   input: CreateProductInput;
 }>;
@@ -4690,6 +4736,82 @@ export const ChannelFragmentDoc = gql`
   __typename
 }
     `;
+export const AssetFragmentDoc = gql`
+    fragment Asset on Asset {
+  id
+  createdAt
+  updatedAt
+  name
+  fileSize
+  mimeType
+  type
+  preview
+  source
+  width
+  height
+  focalPoint {
+    x
+    y
+    __typename
+  }
+  __typename
+}
+    `;
+export const ConfigurableOperationFragmentDoc = gql`
+    fragment ConfigurableOperation on ConfigurableOperation {
+  args {
+    name
+    value
+    __typename
+  }
+  code
+  __typename
+}
+    `;
+export const CollectionFragmentDoc = gql`
+    fragment Collection on Collection {
+  id
+  createdAt
+  updatedAt
+  name
+  slug
+  description
+  isPrivate
+  languageCode
+  featuredAsset {
+    ...Asset
+    __typename
+  }
+  assets {
+    ...Asset
+    __typename
+  }
+  filters {
+    ...ConfigurableOperation
+    __typename
+  }
+  translations {
+    id
+    languageCode
+    name
+    slug
+    description
+    __typename
+  }
+  parent {
+    id
+    name
+    __typename
+  }
+  children {
+    id
+    name
+    __typename
+  }
+  __typename
+}
+    ${AssetFragmentDoc}
+${ConfigurableOperationFragmentDoc}`;
 export const ErrorResultFragmentDoc = gql`
     fragment ErrorResult on ErrorResult {
   errorCode
@@ -4765,27 +4887,6 @@ export const ProductOptionGroupWithOptionsFragmentDoc = gql`
       name
       __typename
     }
-    __typename
-  }
-  __typename
-}
-    `;
-export const AssetFragmentDoc = gql`
-    fragment Asset on Asset {
-  id
-  createdAt
-  updatedAt
-  name
-  fileSize
-  mimeType
-  type
-  preview
-  source
-  width
-  height
-  focalPoint {
-    x
-    y
     __typename
   }
   __typename
@@ -4980,6 +5081,18 @@ ${ErrorResultFragmentDoc}`;
 
 export function useCreateChannelMutation() {
   return Urql.useMutation<CreateChannelMutation, CreateChannelMutationVariables>(CreateChannelDocument);
+};
+export const CreateCollectionDocument = gql`
+    mutation CreateCollection($input: CreateCollectionInput!) {
+  createCollection(input: $input) {
+    ...Collection
+    __typename
+  }
+}
+    ${CollectionFragmentDoc}`;
+
+export function useCreateCollectionMutation() {
+  return Urql.useMutation<CreateCollectionMutation, CreateCollectionMutationVariables>(CreateCollectionDocument);
 };
 export const CreateProductDocument = gql`
     mutation CreateProduct($input: CreateProductInput!) {

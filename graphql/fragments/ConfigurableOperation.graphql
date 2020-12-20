@@ -1,0 +1,9 @@
+fragment ConfigurableOperation on ConfigurableOperation {
+  args {
+    name
+    value
+    __typename
+  }
+  code
+  __typename
+}

@@ -1,0 +1,41 @@
+fragment Collection on Collection {
+  id
+  createdAt
+  updatedAt
+  name
+  slug
+  description
+  isPrivate
+  languageCode
+  featuredAsset {
+    ...Asset
+    __typename
+  }
+  assets {
+    ...Asset
+    __typename
+  }
+  filters {
+    ...ConfigurableOperation
+    __typename
+  }
+  translations {
+    id
+    languageCode
+    name
+    slug
+    description
+    __typename
+  }
+  parent {
+    id
+    name
+    __typename
+  }
+  children {
+    id
+    name
+    __typename
+  }
+  __typename
+}

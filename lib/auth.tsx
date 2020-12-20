@@ -7,7 +7,15 @@ import React, {
 
 import { useRouter } from 'next/router';
 
-import { createUser } from './db';
+import {
+  deleteToken,
+  setToken,
+} from '@/utils/token';
+
+import {
+  createUser,
+  getUser,
+} from './db';
 import firebase from './firebase';
 
 const authContext = createContext(null);
@@ -33,17 +41,17 @@ function useProvideAuth() {
       size: "invisible",
     });
 
+    console.log("initiating phone auth");
     firebase
       .auth()
       .signInWithPhoneNumber(phoneNumber, recaptcha)
       .then(function (confirmationResult) {
         (window as any).confirmationResult = confirmationResult;
-
         setLoading(false);
         setBody("screen2");
       })
       .catch(function (error) {
-        console.log(error);
+        console.log("error on sending otp", error);
       });
   };
 
@@ -54,9 +62,10 @@ function useProvideAuth() {
       .confirm(code)
       .then(async function (result) {
         handleUser(result.user);
-        console.log("result obtained is", result.user);
 
         if (result.user.displayName) {
+          const userData = await getUser(result.user.uid);
+          setToken(userData.channelToken);
           router.push("/");
         } else {
           router.push("/register");
@@ -105,6 +114,7 @@ function useProvideAuth() {
     } else {
       setUser(false);
       setLoading(false);
+      deleteToken();
       return false;
     }
   };
@@ -119,7 +129,6 @@ function useProvideAuth() {
 
   return {
     user,
-    // userAll,
     signinWithGithub,
     signinWithPhone,
     verifyPhone,
