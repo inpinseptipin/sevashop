@@ -68,36 +68,33 @@ export const Register: React.FC<registerProps> = ({}) => {
           console.log(categoryOptions);
 
           categoryOptions.map((value) =>
-            createCollection(
-              {
-                input: {
-                  translations: [
-                    {
-                      languageCode: LanguageCode.En,
-                      name: value.name,
-                      slug: value.name,
-                      description: "",
-                    },
-                  ],
-                  filters: [
-                    {
-                      code: "facet-value-filter",
-                      arguments: [
-                        {
-                          name: "facetValueIds",
-                          value: `["${value.id}"]`,
-                        },
-                        {
-                          name: "containsAny",
-                          value: "true",
-                        },
-                      ],
-                    },
-                  ],
-                },
+            createCollection({
+              input: {
+                translations: [
+                  {
+                    languageCode: LanguageCode.En,
+                    name: value.name,
+                    slug: value.name,
+                    description: "",
+                  },
+                ],
+                filters: [
+                  {
+                    code: "facet-value-filter",
+                    arguments: [
+                      {
+                        name: "facetValueIds",
+                        value: `["${value.id}"]`,
+                      },
+                      {
+                        name: "containsAny",
+                        value: "true",
+                      },
+                    ],
+                  },
+                ],
               },
-              memo
-            )
+            })
           );
 
           // setBody("screen2");
