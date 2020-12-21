@@ -7,9 +7,7 @@ import {
 import { RadioGroupControl } from 'formik-chakra-ui';
 import {
   LanguageCode,
-  useAddOptionGroupToProductMutation,
   useCreateProductMutation,
-  useCreateProductOptionGroupMutation,
   useCreateProductVariantsMutation,
   useGetFacetListQuery,
 } from 'generated/graphql';
@@ -38,8 +36,8 @@ export const Add: React.FC<addProps> = ({}) => {
   const [{ data: facetlist, fetching }] = useGetFacetListQuery();
 
   const [, createProduct] = useCreateProductMutation();
-  const [, createProductOptionGroup] = useCreateProductOptionGroupMutation();
-  const [, addOptionGroupToProduct] = useAddOptionGroupToProductMutation();
+  // const [, createProductOptionGroup] = useCreateProductOptionGroupMutation();
+  // const [, addOptionGroupToProduct] = useAddOptionGroupToProductMutation();
   const [, createProductVariants] = useCreateProductVariantsMutation();
 
   if (fetching) return <Skeleton m="2" height="40px" />;

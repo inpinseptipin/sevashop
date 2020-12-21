@@ -66,11 +66,11 @@ function useProvideAuth() {
 
         if (result.user.displayName) {
           const userData = await getUser(result.user.uid);
-          console.log(
-            "token received is",
-            userData.channelToken,
-            (userData as any).channelToken
-          );
+          // console.log(
+          //   "token received is",
+          //   userData.channelToken,
+          //   (userData as any).channelToken
+          // );
           setToken((userData as any).channelToken);
           router.push("/");
         } else {

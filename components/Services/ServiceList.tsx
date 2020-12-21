@@ -20,7 +20,6 @@ import { ServiceItem } from './ServiceItem';
 // interface MenProps {}
 
 export const ServiceList = ({ gender }) => {
-  // const [{ data, fetching }] = useServicesQuery();
   const [{ data: productlist, fetching }] = useSearchProductsQuery({
     variables: {
       input: {
@@ -35,8 +34,6 @@ export const ServiceList = ({ gender }) => {
   });
 
   if (fetching) return <Text>Loading data</Text>;
-
-  console.log(productlist);
 
   function getCategory(item) {
     return item.facetValue.facet.code === "category";
