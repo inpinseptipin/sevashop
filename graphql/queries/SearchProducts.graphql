@@ -1,0 +1,61 @@
+query SearchProducts($input: SearchInput!) {
+  search(input: $input) {
+    totalItems
+    items {
+      enabled
+      productId
+      productName
+      price {
+        ... on PriceRange {
+          min
+        }
+      }
+      productAsset {
+        id
+        preview
+        focalPoint {
+          x
+          y
+          __typename
+        }
+        __typename
+      }
+      productVariantId
+      facetValueIds
+      productVariantName
+      productVariantAsset {
+        id
+        preview
+        focalPoint {
+          x
+          y
+          __typename
+        }
+        __typename
+      }
+      sku
+      channelIds
+      __typename
+    }
+    facetValues {
+      count
+      facetValue {
+        id
+        createdAt
+        updatedAt
+        name
+        facet {
+          id
+          code
+          createdAt
+          updatedAt
+          name
+          __typename
+        }
+        __typename
+      }
+      __typename
+    }
+    __typename
+  }
+}

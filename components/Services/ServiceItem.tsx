@@ -1,7 +1,14 @@
-import { DeleteIcon } from "@chakra-ui/icons";
-import { Box, Button, Spacer, Text } from "@chakra-ui/react";
-import React from "react";
-import { SampleServiceIcon } from "../Icons";
+import React from 'react';
+
+import { DeleteIcon } from '@chakra-ui/icons';
+import {
+  Box,
+  Button,
+  Spacer,
+  Text,
+} from '@chakra-ui/react';
+
+import { SampleServiceIcon } from '../Icons';
 
 // interface ServiceItemProps {}
 
@@ -26,10 +33,11 @@ export const ServiceItem = ({ service }) => {
       <SampleServiceIcon boxSize="38px" />
       <Box align="left" ml="2">
         <Text fontSize="sm" fontWeight="bold">
-          {service.name}
+          {service.productName}
         </Text>
         <Text fontSize="sm">
-          45 mins / ₹{service.price / 100} / {getGender(service.facetValues)}
+          {/* 45 mins / ₹{service.price.min / 100} / {getGender(service.facetValues)} */}
+          45 mins / ₹{service.price.min / 100}
         </Text>
       </Box>
       <Spacer />

@@ -64,6 +64,7 @@ const CustomTab = React.forwardRef((props: any, ref) => {
 const Home: React.FC<{}> = ({}) => {
   const router = useRouter();
   const auth = useAuth();
+
   if (!auth.user) {
     return (
       <Flex direction="column" height="100vh" justify="center" p="4">
@@ -74,6 +75,8 @@ const Home: React.FC<{}> = ({}) => {
       </Flex>
     );
   }
+  // console.log(data);
+
   return (
     <Wrapper>
       <Flex direction="column">

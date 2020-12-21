@@ -4628,6 +4628,32 @@ export type CreateProductVariantsMutation = (
   )>> }
 );
 
+export type DeleteAssetMutationVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+
+export type DeleteAssetMutation = (
+  { __typename?: 'Mutation' }
+  & { deleteAsset: (
+    { __typename?: 'DeletionResponse' }
+    & Pick<DeletionResponse, 'result'>
+  ) }
+);
+
+export type DeleteProductMutationVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+
+export type DeleteProductMutation = (
+  { __typename?: 'Mutation' }
+  & { deleteProduct: (
+    { __typename: 'DeletionResponse' }
+    & Pick<DeletionResponse, 'result' | 'message'>
+  ) }
+);
+
 export type LoginMutationVariables = Exact<{
   uname: Scalars['String'];
   pass: Scalars['String'];
@@ -4647,6 +4673,23 @@ export type LogoutMutation = (
   & { logout: (
     { __typename?: 'Success' }
     & Pick<Success, 'success'>
+  ) }
+);
+
+export type GetAssetListQueryVariables = Exact<{
+  options?: Maybe<AssetListOptions>;
+}>;
+
+
+export type GetAssetListQuery = (
+  { __typename?: 'Query' }
+  & { assets: (
+    { __typename: 'AssetList' }
+    & Pick<AssetList, 'totalItems'>
+    & { items: Array<(
+      { __typename: 'Asset' }
+      & AssetFragment
+    )> }
   ) }
 );
 
@@ -4708,6 +4751,52 @@ export type ServicesQuery = (
             ) }
           )> }
         )> }
+      ) }
+    )> }
+  ) }
+);
+
+export type SearchProductsQueryVariables = Exact<{
+  input: SearchInput;
+}>;
+
+
+export type SearchProductsQuery = (
+  { __typename?: 'Query' }
+  & { search: (
+    { __typename: 'SearchResponse' }
+    & Pick<SearchResponse, 'totalItems'>
+    & { items: Array<(
+      { __typename: 'SearchResult' }
+      & Pick<SearchResult, 'enabled' | 'productId' | 'productName' | 'productVariantId' | 'facetValueIds' | 'productVariantName' | 'sku' | 'channelIds'>
+      & { price: (
+        { __typename?: 'PriceRange' }
+        & Pick<PriceRange, 'min'>
+      ) | { __typename?: 'SinglePrice' }, productAsset?: Maybe<(
+        { __typename: 'SearchResultAsset' }
+        & Pick<SearchResultAsset, 'id' | 'preview'>
+        & { focalPoint?: Maybe<(
+          { __typename: 'Coordinate' }
+          & Pick<Coordinate, 'x' | 'y'>
+        )> }
+      )>, productVariantAsset?: Maybe<(
+        { __typename: 'SearchResultAsset' }
+        & Pick<SearchResultAsset, 'id' | 'preview'>
+        & { focalPoint?: Maybe<(
+          { __typename: 'Coordinate' }
+          & Pick<Coordinate, 'x' | 'y'>
+        )> }
+      )> }
+    )>, facetValues: Array<(
+      { __typename: 'FacetValueResult' }
+      & Pick<FacetValueResult, 'count'>
+      & { facetValue: (
+        { __typename: 'FacetValue' }
+        & Pick<FacetValue, 'id' | 'createdAt' | 'updatedAt' | 'name'>
+        & { facet: (
+          { __typename: 'Facet' }
+          & Pick<Facet, 'id' | 'code' | 'createdAt' | 'updatedAt' | 'name'>
+        ) }
       ) }
     )> }
   ) }
@@ -5130,6 +5219,30 @@ export const CreateProductVariantsDocument = gql`
 export function useCreateProductVariantsMutation() {
   return Urql.useMutation<CreateProductVariantsMutation, CreateProductVariantsMutationVariables>(CreateProductVariantsDocument);
 };
+export const DeleteAssetDocument = gql`
+    mutation DeleteAsset($id: ID!) {
+  deleteAsset(id: $id) {
+    result
+  }
+}
+    `;
+
+export function useDeleteAssetMutation() {
+  return Urql.useMutation<DeleteAssetMutation, DeleteAssetMutationVariables>(DeleteAssetDocument);
+};
+export const DeleteProductDocument = gql`
+    mutation DeleteProduct($id: ID!) {
+  deleteProduct(id: $id) {
+    result
+    message
+    __typename
+  }
+}
+    `;
+
+export function useDeleteProductMutation() {
+  return Urql.useMutation<DeleteProductMutation, DeleteProductMutationVariables>(DeleteProductDocument);
+};
 export const LoginDocument = gql`
     mutation Login($uname: String!, $pass: String!) {
   login(username: $uname, password: $pass, rememberMe: true) {
@@ -5151,6 +5264,22 @@ export const LogoutDocument = gql`
 
 export function useLogoutMutation() {
   return Urql.useMutation<LogoutMutation, LogoutMutationVariables>(LogoutDocument);
+};
+export const GetAssetListDocument = gql`
+    query GetAssetList($options: AssetListOptions) {
+  assets(options: $options) {
+    items {
+      ...Asset
+      __typename
+    }
+    totalItems
+    __typename
+  }
+}
+    ${AssetFragmentDoc}`;
+
+export function useGetAssetListQuery(options: Omit<Urql.UseQueryArgs<GetAssetListQueryVariables>, 'query'> = {}) {
+  return Urql.useQuery<GetAssetListQuery>({ query: GetAssetListDocument, ...options });
 };
 export const GetFacetsDocument = gql`
     query GetFacets($id: ID!) {
@@ -5209,4 +5338,71 @@ export const ServicesDocument = gql`
 
 export function useServicesQuery(options: Omit<Urql.UseQueryArgs<ServicesQueryVariables>, 'query'> = {}) {
   return Urql.useQuery<ServicesQuery>({ query: ServicesDocument, ...options });
+};
+export const SearchProductsDocument = gql`
+    query SearchProducts($input: SearchInput!) {
+  search(input: $input) {
+    totalItems
+    items {
+      enabled
+      productId
+      productName
+      price {
+        ... on PriceRange {
+          min
+        }
+      }
+      productAsset {
+        id
+        preview
+        focalPoint {
+          x
+          y
+          __typename
+        }
+        __typename
+      }
+      productVariantId
+      facetValueIds
+      productVariantName
+      productVariantAsset {
+        id
+        preview
+        focalPoint {
+          x
+          y
+          __typename
+        }
+        __typename
+      }
+      sku
+      channelIds
+      __typename
+    }
+    facetValues {
+      count
+      facetValue {
+        id
+        createdAt
+        updatedAt
+        name
+        facet {
+          id
+          code
+          createdAt
+          updatedAt
+          name
+          __typename
+        }
+        __typename
+      }
+      __typename
+    }
+    __typename
+  }
+}
+    `;
+
+export function useSearchProductsQuery(options: Omit<Urql.UseQueryArgs<SearchProductsQueryVariables>, 'query'> = {}) {
+  return Urql.useQuery<SearchProductsQuery>({ query: SearchProductsDocument, ...options });
 };

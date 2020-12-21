@@ -1,6 +1,9 @@
 import React from 'react';
 
-import { useServicesQuery } from 'generated/graphql';
+import {
+  LogicalOperator,
+  useSearchProductsQuery,
+} from 'generated/graphql';
 
 import {
   Accordion,
@@ -9,7 +12,6 @@ import {
   AccordionItem,
   AccordionPanel,
   Box,
-  Skeleton,
   Text,
 } from '@chakra-ui/react';
 
@@ -18,39 +20,59 @@ import { ServiceItem } from './ServiceItem';
 // interface MenProps {}
 
 export const ServiceList = ({ gender }) => {
-  const [{ data, fetching }] = useServicesQuery();
-  if (fetching) {
-    return <Skeleton m="2" height="40px" />;
+  // const [{ data, fetching }] = useServicesQuery();
+  const [{ data: productlist, fetching }] = useSearchProductsQuery({
+    variables: {
+      input: {
+        skip: 0,
+        take: 50,
+        term: "",
+        facetValueIds: [],
+        facetValueOperator: LogicalOperator.And,
+        groupByProduct: true,
+      },
+    },
+  });
+
+  if (fetching) return <Text>Loading data</Text>;
+
+  console.log(productlist);
+
+  function getCategory(item) {
+    return item.facetValue.facet.code === "category";
   }
-  function checkGender(item) {
-    return (
-      item.facetValues[0].name === gender || item.facetValues[1].name === gender
-    );
+  function getFacetProducts(facetValueId, item) {
+    return item.facetValueIds.includes(facetValueId);
   }
-  if (!data) return <Text>No data!</Text>;
-  console.log(data);
   return (
     <Accordion defaultIndex={[0]} allowMultiple m="2">
-      {data.collections.items.map((collection) => (
-        <AccordionItem
-          key={collection.id}
-          m="2"
-          backgroundColor="white"
-          borderRadius="10px"
-        >
-          <AccordionButton>
-            <Box flex="1" textAlign="left">
-              {collection.name}
-            </Box>
-            <AccordionIcon />
-          </AccordionButton>
-          <AccordionPanel pb={4}>
-            {collection.productVariants.items.map((service) => (
-              <ServiceItem service={service} key={service.id}></ServiceItem>
-            ))}
-          </AccordionPanel>
-        </AccordionItem>
-      ))}
+      {productlist.search.facetValues
+        .filter(getCategory)
+        .map(({ facetValue }) => (
+          <AccordionItem
+            key={facetValue.name}
+            m="2"
+            backgroundColor="white"
+            borderRadius="10px"
+          >
+            <AccordionButton>
+              <Box flex="1" textAlign="left">
+                {facetValue.name}
+              </Box>
+              <AccordionIcon />
+            </AccordionButton>
+            <AccordionPanel pb={4}>
+              {productlist.search.items
+                .filter(getFacetProducts.bind(this, facetValue.id))
+                .map((service) => (
+                  <ServiceItem
+                    service={service}
+                    key={service.productId}
+                  ></ServiceItem>
+                ))}
+            </AccordionPanel>
+          </AccordionItem>
+        ))}
     </Accordion>
   );
 };

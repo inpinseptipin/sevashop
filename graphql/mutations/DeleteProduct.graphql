@@ -1,0 +1,7 @@
+mutation DeleteProduct($id: ID!) {
+  deleteProduct(id: $id) {
+    result
+    message
+    __typename
+  }
+}

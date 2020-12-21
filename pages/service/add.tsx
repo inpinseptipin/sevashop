@@ -25,6 +25,7 @@ import {
   Button,
   Flex,
   Heading,
+  IconButton,
   Radio,
   Skeleton,
   useToast,
@@ -43,24 +44,38 @@ export const Add: React.FC<addProps> = ({}) => {
 
   if (fetching) return <Skeleton m="2" height="40px" />;
 
-  const genderOptions = facetlist.facets.items[0].values.map((value) => ({
-    name: value.name,
-    id: value.id,
-  }));
-  const categoryOptions = facetlist.facets.items[1].values.map((value) => ({
-    name: value.name,
-    id: value.id,
-  }));
-  const timeOptions = facetlist.facets.items[2].values
-    .map((value) => ({
+  function checkProp(propval, item) {
+    return item.code === propval;
+  }
+
+  const genderOptions = facetlist.facets.items
+    .filter(checkProp.bind(this, "gender"))[0]
+    .values.map((value) => ({
+      name: value.name,
+      id: value.id,
+    }));
+
+  const categoryOptions = facetlist.facets.items
+    .filter(checkProp.bind(this, "category"))[0]
+    .values.map((value) => ({
+      name: value.name,
+      id: value.id,
+    }));
+
+  const timeOptions = facetlist.facets.items
+    .filter(checkProp.bind(this, "duration"))[0]
+    .values.map((value) => ({
       name: value.name,
       id: value.id,
     }))
     .sort((a, b) => (a.name > b.name ? 1 : b.name > a.name ? -1 : 0));
-  const staffOptions = facetlist.facets.items[3].values.map((value) => ({
-    name: value.name,
-    id: value.id,
-  }));
+
+  const staffOptions = facetlist.facets.items
+    .filter(checkProp.bind(this, "staff"))[0]
+    .values.map((value) => ({
+      name: value.name,
+      id: value.id,
+    }));
 
   return (
     <Wrapper>
@@ -75,7 +90,14 @@ export const Add: React.FC<addProps> = ({}) => {
           top={0}
           backgroundColor="white"
         >
-          <GoBackIcon boxSize="32px" />
+          <IconButton
+            aria-label="Add Service"
+            icon={<GoBackIcon boxSize="32px" />}
+            onClick={() => {
+              router.back();
+            }}
+          />
+
           <Heading ml="4">Add Service</Heading>
         </Flex>
         <Formik
@@ -101,32 +123,32 @@ export const Add: React.FC<addProps> = ({}) => {
                 ],
               },
             });
-            const optionGroupInfo = await createProductOptionGroup({
-              input: {
-                code: "gender",
-                translations: [
-                  {
-                    languageCode: LanguageCode.En,
-                    name: "Gender",
-                  },
-                ],
-                options: [
-                  {
-                    code: values.gender.toLowerCase(),
-                    translations: [
-                      {
-                        languageCode: LanguageCode.En,
-                        name: values.gender,
-                      },
-                    ],
-                  },
-                ],
-              },
-            });
-            const addOptionGroupToProductInfo = await addOptionGroupToProduct({
-              productId: productInfo.data.createProduct.id,
-              optionGroupId: optionGroupInfo.data.createProductOptionGroup.id,
-            });
+            // const optionGroupInfo = await createProductOptionGroup({
+            //   input: {
+            //     code: "gender",
+            //     translations: [
+            //       {
+            //         languageCode: LanguageCode.En,
+            //         name: "Gender",
+            //       },
+            //     ],
+            //     options: [
+            //       {
+            //         code: values.gender.toLowerCase(),
+            //         translations: [
+            //           {
+            //             languageCode: LanguageCode.En,
+            //             name: values.gender,
+            //           },
+            //         ],
+            //       },
+            //     ],
+            //   },
+            // });
+            // const addOptionGroupToProductInfo = await addOptionGroupToProduct({
+            //   productId: productInfo.data.createProduct.id,
+            //   optionGroupId: optionGroupInfo.data.createProductOptionGroup.id,
+            // });
             await createProductVariants({
               input: [
                 {
@@ -140,10 +162,10 @@ export const Add: React.FC<addProps> = ({}) => {
                       name: values.name,
                     },
                   ],
-                  optionIds: [
-                    addOptionGroupToProductInfo.data.addOptionGroupToProduct
-                      .optionGroups[0].options[0].id,
-                  ],
+                  // optionIds: [
+                  //   addOptionGroupToProductInfo.data.addOptionGroupToProduct
+                  //     .optionGroups[0].options[0].id,
+                  // ],
                   facetValueIds: [
                     values.gender,
                     values.category,

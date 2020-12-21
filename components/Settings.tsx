@@ -1,5 +1,13 @@
 import React from 'react';
 
+import {
+  LogicalOperator,
+  SortOrder,
+  useDeleteAssetMutation,
+  useDeleteProductMutation,
+  useGetAssetListQuery,
+  useSearchProductsQuery,
+} from 'generated/graphql';
 import { useRouter } from 'next/router';
 import useSWR from 'swr';
 
@@ -26,6 +34,36 @@ export const Settings: React.FC<SettingsProps> = ({}) => {
     auth.user ? ["/api/user", auth.user.uid] : null,
     fetcher
   );
+  const [, deleteProduct] = useDeleteProductMutation();
+  const [{ data: productlist }] = useSearchProductsQuery({
+    variables: {
+      input: {
+        skip: 0,
+        take: 50,
+        term: "",
+        facetValueIds: [],
+        facetValueOperator: LogicalOperator.And,
+        groupByProduct: true,
+      },
+    },
+  });
+  const [{ data: assetlist }] = useGetAssetListQuery({
+    variables: {
+      options: {
+        skip: 0,
+        take: 50,
+        filter: {
+          name: {
+            contains: "",
+          },
+        },
+        sort: {
+          createdAt: SortOrder.Desc,
+        },
+      },
+    },
+  });
+  const [, deleteAsset] = useDeleteAssetMutation();
   if (!data) return <Skeleton m="2" height="40px" />;
   const link = `https://sevashop.tech/${data.user.channelToken}`;
   return (
@@ -55,6 +93,30 @@ export const Settings: React.FC<SettingsProps> = ({}) => {
         }}
       >
         Logout
+      </Button>
+      <Button
+        m="2"
+        onClick={() => {
+          productlist.search.items.map((value) => {
+            deleteProduct({
+              id: value.productId,
+            });
+          });
+        }}
+      >
+        Delete Products
+      </Button>
+      <Button
+        m="2"
+        onClick={() => {
+          assetlist.assets.items.map((value) => {
+            deleteAsset({
+              id: value.id,
+            });
+          });
+        }}
+      >
+        Delete Assets
       </Button>
     </Flex>
   );

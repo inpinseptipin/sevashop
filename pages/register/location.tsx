@@ -38,10 +38,13 @@ export const RegisterLoc: React.FC<registerProps> = ({}) => {
       url: `https://server.sevashop.tech/admin-api?vendure-token=${getToken()}`,
     };
   }, []);
-
+  function getCategory(item) {
+    return item.code === "category";
+  }
   const [{ data: facetlist, fetching }] = useGetFacetListQuery({
     context: memo,
   });
+  // console.log(facetlist);
   return (
     <Wrapper>
       <Flex direction="column" p="4">
@@ -53,13 +56,13 @@ export const RegisterLoc: React.FC<registerProps> = ({}) => {
             auth.addDisplayName();
             createUser(auth.user.uid, { salonLocation: values.location });
 
-            const categoryOptions = facetlist.facets.items[1].values.map(
-              (value) => ({
+            const categoryOptions = facetlist.facets.items
+              .filter(getCategory)[0]
+              .values.map((value) => ({
                 name: value.name,
                 id: value.id,
-              })
-            );
-            console.log(categoryOptions);
+              }));
+            // console.log("yo", categoryOptions);
 
             categoryOptions.map((value) =>
               createCollection(
