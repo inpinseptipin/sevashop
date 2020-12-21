@@ -4,11 +4,6 @@ import {
   Form,
   Formik,
 } from 'formik';
-import {
-  LanguageCode,
-  useCreateCollectionMutation,
-  useGetFacetListQuery,
-} from 'generated/graphql';
 import { withUrqlClient } from 'next-urql';
 import { useRouter } from 'next/router';
 
@@ -17,7 +12,6 @@ import { Wrapper } from '@/components/Wrapper';
 import { useAuth } from '@/lib/auth';
 import { createUser } from '@/lib/db';
 import { createUrqlClient } from '@/utils/createUrqlClient';
-import { getToken } from '@/utils/token';
 import {
   Button,
   Flex,
@@ -31,19 +25,19 @@ export const RegisterLoc: React.FC<registerProps> = ({}) => {
   const router = useRouter();
   const auth = useAuth();
 
-  const [, createCollection] = useCreateCollectionMutation();
+  // const [, createCollection] = useCreateCollectionMutation();
 
-  const memo = React.useMemo(function () {
-    return {
-      url: `https://server.sevashop.tech/admin-api?vendure-token=${getToken()}`,
-    };
-  }, []);
-  function getCategory(item) {
-    return item.code === "category";
-  }
-  const [{ data: facetlist, fetching }] = useGetFacetListQuery({
-    context: memo,
-  });
+  // const memo = React.useMemo(function () {
+  //   return {
+  //     url: `https://server.sevashop.tech/admin-api?vendure-token=${getToken()}`,
+  //   };
+  // }, []);
+  // function getCategory(item) {
+  //   return item.code === "category";
+  // }
+  // const [{ data: facetlist, fetching }] = useGetFacetListQuery({
+  //   context: memo,
+  // });
   // console.log(facetlist);
   return (
     <Wrapper>
@@ -56,46 +50,46 @@ export const RegisterLoc: React.FC<registerProps> = ({}) => {
             auth.addDisplayName();
             createUser(auth.user.uid, { salonLocation: values.location });
 
-            const categoryOptions = facetlist.facets.items
-              .filter(getCategory)[0]
-              .values.map((value) => ({
-                name: value.name,
-                id: value.id,
-              }));
+            // const categoryOptions = facetlist.facets.items
+            //   .filter(getCategory)[0]
+            //   .values.map((value) => ({
+            //     name: value.name,
+            //     id: value.id,
+            //   }));
             // console.log("yo", categoryOptions);
 
-            categoryOptions.map((value) =>
-              createCollection(
-                {
-                  input: {
-                    translations: [
-                      {
-                        languageCode: LanguageCode.En,
-                        name: value.name,
-                        slug: value.name,
-                        description: "",
-                      },
-                    ],
-                    filters: [
-                      {
-                        code: "facet-value-filter",
-                        arguments: [
-                          {
-                            name: "facetValueIds",
-                            value: `["${value.id}"]`,
-                          },
-                          {
-                            name: "containsAny",
-                            value: "true",
-                          },
-                        ],
-                      },
-                    ],
-                  },
-                },
-                memo
-              )
-            );
+            // categoryOptions.map((value) =>
+            //   createCollection(
+            //     {
+            //       input: {
+            //         translations: [
+            //           {
+            //             languageCode: LanguageCode.En,
+            //             name: value.name,
+            //             slug: value.name,
+            //             description: "",
+            //           },
+            //         ],
+            //         filters: [
+            //           {
+            //             code: "facet-value-filter",
+            //             arguments: [
+            //               {
+            //                 name: "facetValueIds",
+            //                 value: `["${value.id}"]`,
+            //               },
+            //               {
+            //                 name: "containsAny",
+            //                 value: "true",
+            //               },
+            //             ],
+            //           },
+            //         ],
+            //       },
+            //     },
+            //     memo
+            //   )
+            // );
             router.push("/");
           }}
         >
