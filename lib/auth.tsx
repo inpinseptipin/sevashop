@@ -121,6 +121,7 @@ function useProvideAuth() {
       setUser(false);
       setLoading(false);
       deleteToken();
+      setToken("yti4eygxragh59ndrgz");
       return false;
     }
   };

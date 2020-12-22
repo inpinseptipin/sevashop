@@ -16,6 +16,7 @@ import { InputField } from '@/components/InputField';
 import { Wrapper } from '@/components/Wrapper';
 import { useAuth } from '@/lib/auth';
 import { createUser } from '@/lib/db';
+import { createUrqlClient } from '@/utils/createUrqlClient';
 import { setToken } from '@/utils/token';
 import {
   Button,
@@ -31,6 +32,7 @@ export const RegisterName: React.FC<registerProps> = ({}) => {
   const auth = useAuth();
   let token = "";
   const [, createChannel] = useCreateChannelMutation();
+  // const [{data:getChannel}] = useGetChannelQuery()
 
   return (
     <Wrapper>
@@ -86,9 +88,4 @@ export const RegisterName: React.FC<registerProps> = ({}) => {
   );
 };
 
-export default withUrqlClient(
-  (_ssrExchange, ctx) => ({
-    url: `https://server.sevashop.tech/admin-api`,
-  }),
-  { ssr: false }
-)(RegisterName);
+export default withUrqlClient(createUrqlClient)(RegisterName);

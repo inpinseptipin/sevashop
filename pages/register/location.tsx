@@ -39,6 +39,9 @@ export const RegisterLoc: React.FC<registerProps> = ({}) => {
   //   context: memo,
   // });
   // console.log(facetlist);
+  // const [{ data: currentChannel }] = useGetChannelQuery();
+  // console.log(currentChannel);
+
   return (
     <Wrapper>
       <Flex direction="column" p="4">
@@ -47,6 +50,7 @@ export const RegisterLoc: React.FC<registerProps> = ({}) => {
           key={2}
           initialValues={{ location: "" }}
           onSubmit={(values, { setErrors }) => {
+            // console.log(currentChannel);
             auth.addDisplayName();
             createUser(auth.user.uid, { salonLocation: values.location });
 

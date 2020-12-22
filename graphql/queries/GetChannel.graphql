@@ -1,0 +1,6 @@
+query GetChannel($id: ID!) {
+  channel(id: $id) {
+    ...Channel
+    __typename
+  }
+}

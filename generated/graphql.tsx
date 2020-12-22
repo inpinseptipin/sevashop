@@ -4693,6 +4693,19 @@ export type GetAssetListQuery = (
   ) }
 );
 
+export type GetChannelQueryVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+
+export type GetChannelQuery = (
+  { __typename?: 'Query' }
+  & { channel?: Maybe<(
+    { __typename: 'Channel' }
+    & ChannelFragment
+  )> }
+);
+
 export type GetFacetsQueryVariables = Exact<{
   id: Scalars['ID'];
 }>;
@@ -5280,6 +5293,18 @@ export const GetAssetListDocument = gql`
 
 export function useGetAssetListQuery(options: Omit<Urql.UseQueryArgs<GetAssetListQueryVariables>, 'query'> = {}) {
   return Urql.useQuery<GetAssetListQuery>({ query: GetAssetListDocument, ...options });
+};
+export const GetChannelDocument = gql`
+    query GetChannel($id: ID!) {
+  channel(id: $id) {
+    ...Channel
+    __typename
+  }
+}
+    ${ChannelFragmentDoc}`;
+
+export function useGetChannelQuery(options: Omit<Urql.UseQueryArgs<GetChannelQueryVariables>, 'query'> = {}) {
+  return Urql.useQuery<GetChannelQuery>({ query: GetChannelDocument, ...options });
 };
 export const GetFacetsDocument = gql`
     query GetFacets($id: ID!) {

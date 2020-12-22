@@ -6,7 +6,7 @@ export const createUrqlClient = (ssrExchange: any, ctx: any) => {
     fetchOptions: () => ({
       credentials: "include" as const,
       headers: {
-        "vendure-token": typeof window !== "undefined" ? getToken() : "",
+        "vendure-token": getToken(),
       },
     }),
   };
