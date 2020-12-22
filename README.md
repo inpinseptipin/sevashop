@@ -1,15 +1,50 @@
-# next-offline example
+# Sevashop
 
-This example demonstrates how to use the [next-offline plugin](https://github.com/hanford/next-offline) It includes manifest.json to install app via chrome
+The service sector in India faces the following problems.
 
-## How to use
+- Let’s say you want to book a slot at a barbershop near you. There is no easy way for Individuals like us to book a service near us.
+- The easiest way for services to go online right now is to list on aggregators, but doing so destroys the business’s brand and reduces margins.
+- Setting up your store with something like Shopify is possible, but it is a daunting task and quite expensive.
+- Even the businesses who have gone online find it time-consuming to make digital marketing content.
 
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init) or [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/) to bootstrap the example:
+SevaShop helps any service-based business build their online stores with a simple mobile app. Our B2B application will allow businesses like salons, car workshops, etc., to create an e-commerce store in 15 secs. With multilingual and vernacular language support, we will empower tier 2 and 3 market segments to go online with ease.
 
-```bash
-npx create-next-app --example with-next-offline with-next-offline-app
-# or
-yarn create next-app --example with-next-offline with-next-offline-app
-```
+Checkout the [demo video](https://youtu.be/gWOxo-UuT28)
+Also see our [mvp video](https://youtu.be/o4YRtYcPQ84)
 
-Deploy it to the cloud with [Vercel](https://vercel.com/import?filter=next.js&utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
+Here is the final stack we used
+
+#### Ecommerce framework
+
+- [Vendure](vendure.io)
+- Postgres
+
+#### Dashboard of a tenant
+
+- Nextjs
+- React
+- Chakra UI framework
+- Firebase for phone auth
+- GraphQL admin api of vendure
+
+#### Storefront
+
+- Nextjs
+- React
+- Chakra UI framework
+- GraphQL shop api of vendure
+
+#### Deployment
+
+- Nginx for reverse proxy
+- Digitalocean droplet for Vendure server
+- Vercel for the storefront and dashboard
+
+Thanks to all of the courses/blogs/docs mentioned below
+
+- https://react2025.com/
+- https://youtu.be/I6ypD7qv3Z8
+- https://chakra-ui.com/docs/getting-started
+- https://github.com/FormidableLabs/urql/discussions/1237
+- https://www.coderrocketfuel.com/article/how-to-deploy-a-next-js-website-to-a-digital-ocean-server
+- https://www.digitalocean.com/community/tutorials/how-to-set-up-a-node-js-application-for-production-on-ubuntu-18-04
