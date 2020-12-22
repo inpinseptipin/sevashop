@@ -122,6 +122,7 @@ function useProvideAuth() {
       setLoading(false);
       deleteToken();
       setToken("yti4eygxragh59ndrgz");
+      router.push("/welcome");
       return false;
     }
   };
