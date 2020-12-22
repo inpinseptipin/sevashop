@@ -33,7 +33,7 @@ export const ServiceList = ({ gender }) => {
     },
   });
 
-  if (fetching) return <Text>Loading data</Text>;
+  if (fetching || !productlist) return <Text>Loading data</Text>;
 
   function getCategory(item) {
     return item.facetValue.facet.code === "category";
