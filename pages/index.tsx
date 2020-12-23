@@ -75,7 +75,6 @@ const Home: React.FC<{}> = ({}) => {
       </Flex>
     );
   }
-  // console.log(data);
 
   return (
     <Wrapper>

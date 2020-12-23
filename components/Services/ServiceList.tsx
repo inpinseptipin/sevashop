@@ -38,9 +38,22 @@ export const ServiceList = ({ gender }) => {
   function getCategory(item) {
     return item.facetValue.facet.code === "category";
   }
+
   function getFacetProducts(facetValueId, item) {
     return item.facetValueIds.includes(facetValueId);
   }
+
+  console.log(productlist);
+
+  const facetMap = productlist.search.facetValues.reduce(
+    (map, obj) => ((map[obj.facetValue.id] = obj.facetValue.name), map),
+    {}
+  );
+
+  // const result = new Map()
+
+  console.log(facetMap);
+
   return (
     <Accordion defaultIndex={[0]} allowMultiple m="2">
       {productlist.search.facetValues
@@ -64,6 +77,7 @@ export const ServiceList = ({ gender }) => {
                 .map((service) => (
                   <ServiceItem
                     service={service}
+                    facetMap={facetMap}
                     key={service.productId}
                   ></ServiceItem>
                 ))}

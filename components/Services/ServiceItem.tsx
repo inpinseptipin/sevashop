@@ -12,7 +12,8 @@ import { SampleServiceIcon } from '../Icons';
 
 // interface ServiceItemProps {}
 
-export const ServiceItem = ({ service }) => {
+export const ServiceItem = ({ service, facetMap }) => {
+  // console.log(service);
   function getGender(item) {
     for (var idx = 0; idx < item.length; idx++) {
       const name = item[idx].name;
@@ -36,8 +37,8 @@ export const ServiceItem = ({ service }) => {
           {service.productName}
         </Text>
         <Text fontSize="sm">
-          {/* 45 mins / ₹{service.price.min / 100} / {getGender(service.facetValues)} */}
-          45 mins / ₹{service.price.min / 100}
+          {facetMap[service.facetValueIds[1]]} mins / ₹{service.price.min / 100}{" "}
+          / {facetMap[service.facetValueIds[2]]}
         </Text>
       </Box>
       <Spacer />
