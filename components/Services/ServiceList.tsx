@@ -52,7 +52,7 @@ export const ServiceList = ({ gender }) => {
 
   // const result = new Map()
 
-  console.log(facetMap);
+  // console.log(facetMap);
 
   return (
     <Accordion defaultIndex={[0]} allowMultiple m="2">
@@ -64,6 +64,8 @@ export const ServiceList = ({ gender }) => {
             m="2"
             backgroundColor="white"
             borderRadius="10px"
+            borderTopWidth={0}
+            _last={{ borderBottomWidth: 0 }}
           >
             <AccordionButton>
               <Box flex="1" textAlign="left">
