@@ -37,8 +37,8 @@ export const ServiceItem = ({ service, facetMap }) => {
           {service.productName}
         </Text>
         <Text fontSize="sm">
-          {facetMap[service.facetValueIds[1]]} mins / ₹{service.price.min / 100}{" "}
-          / {facetMap[service.facetValueIds[2]]}
+          {facetMap[service.facetValueIds[2]]} mins / ₹{service.price.min / 100}{" "}
+          / {facetMap[service.facetValueIds[1]]}
         </Text>
       </Box>
       <Spacer />
