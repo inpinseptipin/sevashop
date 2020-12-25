@@ -4,7 +4,7 @@
 
   <h3 align="center">SevaShop</h3>
 
-  <p align="center"><img src="https://img.shields.io/github/issues-raw/SevaShop/storefront?style=flat-square"> <img src="https://img.shields.io/website?url=https://sevashop.tech/&style=flat-square"> <img src="https://img.shields.io/github/languages/count/SevaShop/storefront?style=flat-square"> <img src="https://img.shields.io/github/languages/code-size/SevaShop/storefront?style=flat-square"> <img src="https://img.shields.io/github/stars/SevaShop/storefront?style=flat-square"> <img src="https://img.shields.io/github/contributors/SevaShop/storefront?style=flat-square"> <img src="https://img.shields.io/github/license/SevaShop/storefront?style=flat-square"></p>
+  <p align="center"><img src="https://img.shields.io/github/issues-raw/SevaShop/sevashop?style=flat-square"> <img src="https://img.shields.io/website?url=https://sevashop.tech/&style=flat-square"> <img src="https://img.shields.io/github/languages/count/SevaShop/sevashop?style=flat-square"> <img src="https://img.shields.io/github/languages/code-size/SevaShop/sevashop?style=flat-square"> <img src="https://img.shields.io/github/stars/SevaShop/sevashop?style=flat-square"> <img src="https://img.shields.io/github/contributors/SevaShop/sevashop?style=flat-square"> <img src="https://img.shields.io/github/license/SevaShop/sevashop?style=flat-square"></p>
 
   <p align="center">
     <a href="https://sevashop.tech/">Website</a>
@@ -28,11 +28,11 @@ SevaShop helps any service-based business build their online stores with a simpl
 
 ### SevaShop Storefront
 
-![SevaShop Storefront](https://i.ibb.co/ZmHwhTk/Screenshot-4.png)
+<img src="https://i.imgur.com/57b3zNt.png" alt="SevaShop Storefront" width=100%>
 
 ### Online Store
 
-![SevaShop Online Store](https://i.ibb.co/dKhXcgZ/Screenshot-5.png)
+<img src="https://i.imgur.com/Df8rw5K.png" alt="SevaShop Online Store" width=100%>
 
 
 ## 💥 Demo
