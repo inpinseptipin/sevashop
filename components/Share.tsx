@@ -20,12 +20,12 @@ interface ShareProps {}
 
 export const Share: React.FC<ShareProps> = ({}) => {
   return (
-      <Flex direction="column">
+      <Flex direction="column" maxW={["100vw","75vw","50vw","25vw"]}>
         <Flex m="4" align="center">
           <GoBackIcon boxSize="32px" />
           <Heading ml="4">Promote My Salon</Heading>
         </Flex>
-        <Flex direction="column" height="100vh">
+        <Flex direction="column" >
           <Flex p="2" align="center">
             <Image src="/static/qrcode.png" alt="QR Code" boxSize="128px" />
             <Box ml="2">
@@ -44,7 +44,7 @@ export const Share: React.FC<ShareProps> = ({}) => {
             Save to device
           </Button>
           <Heading>Graphics</Heading>
-          <Flex overflowX="auto">
+          <Flex overflowX="auto" maxW={["100vw","75vw","50vw","25vw"]}>
             <Image
               flexShrink={0}
               p="2"

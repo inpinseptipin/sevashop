@@ -34,7 +34,7 @@ export const BookingList: React.FC = ({}) => {
   });
   if (fetching) return <Skeleton m="2" height="40px" />;
   return (
-    <VStack>
+    <VStack align="left">
       {bookingList?.orders.items.map((order) => (
         <BookingItem order={order}></BookingItem>
       ))}

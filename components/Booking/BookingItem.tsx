@@ -16,12 +16,12 @@ export const BookingItem: React.FC<BookingItemProps> = ({ order }) => {
   if (!order) return <Skeleton m="2" height="40px" />;
   return (
     <Flex
-      minW="365px"
+      // minW="365px"
       backgroundColor="white"
       borderRadius="5px"
       boxShadow="sm"
-      align="center"
-      mx="auto"
+      // align="center"
+      // mx="auto"
     >
       <Flex
         direction="column"

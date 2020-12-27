@@ -78,7 +78,7 @@ const Home: React.FC<{}> = ({}) => {
 
   return (
     <Wrapper>
-      <Flex direction="column" align="center" width="100vw">
+      <Flex direction="column" align="center" >
         <Tabs isFitted variant="unstyled" >
           <TabPanels >
             <TabPanel p={0} >
@@ -94,7 +94,7 @@ const Home: React.FC<{}> = ({}) => {
               <Settings />
             </TabPanel>
           </TabPanels>
-          <Box boxShadow="2xl" mx="auto" position="fixed" bottom="0">
+          <Box boxShadow="2xl" mx="auto" minW={["100vw","75vw","50vw","25vw"]} position="fixed" bottom="0">
             <TabList>
               <CustomTab>
                 <BookingsIcon boxSize="20px" />

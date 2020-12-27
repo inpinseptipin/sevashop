@@ -67,7 +67,7 @@ export const Settings: React.FC<SettingsProps> = ({}) => {
   if (!data) return <Skeleton m="2" height="40px" />;
   const link = `https://sevashop.tech/${data.user.channelToken}`;
   return (
-    <Flex height="100vh" p="2" direction="column">
+    <Flex  p="2" direction="column" minW={["100vw","75vw","50vw","25vw"]}>
       <HStack>
         <QuestionIcon boxSize="96px" />
         <Box>
@@ -94,7 +94,7 @@ export const Settings: React.FC<SettingsProps> = ({}) => {
       >
         Logout
       </Button>
-      <Button
+      {/* <Button
         m="2"
         onClick={() => {
           productlist.search.items.map((value) => {
@@ -117,7 +117,7 @@ export const Settings: React.FC<SettingsProps> = ({}) => {
         }}
       >
         Delete Assets
-      </Button>
+      </Button> */}
     </Flex>
   );
 };
