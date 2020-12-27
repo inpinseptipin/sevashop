@@ -13,6 +13,7 @@ import {
   AccordionPanel,
   Box,
   Text,
+  VStack,
 } from '@chakra-ui/react';
 
 import { ServiceItem } from './ServiceItem';
@@ -70,15 +71,17 @@ export const ServiceList = ({ gender }) => {
               <AccordionIcon />
             </AccordionButton>
             <AccordionPanel pb={4}>
-              {productlist.search.items
-                .filter(getFacetProducts.bind(this, facetValue.id))
-                .map((service) => (
-                  <ServiceItem
-                    service={service}
-                    facetMap={facetMap}
-                    key={service.productId}
-                  ></ServiceItem>
-                ))}
+              <VStack align="left">
+                {productlist.search.items
+                  .filter(getFacetProducts.bind(this, facetValue.id))
+                  .map((service) => (
+                    <ServiceItem
+                      service={service}
+                      facetMap={facetMap}
+                      key={service.productId}
+                    ></ServiceItem>
+                  ))}
+              </VStack>
             </AccordionPanel>
           </AccordionItem>
         ))}
