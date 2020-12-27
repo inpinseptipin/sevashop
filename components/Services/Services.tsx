@@ -20,7 +20,7 @@ interface ServicesProps {}
 export const Services: React.FC<ServicesProps> = ({}) => {
   const router = useRouter();
   return (
-    <Flex direction="column">
+    <Flex direction="column" minW={["100vw","75vw","50vw","25vw"]}> 
       <Flex
         zIndex={1}
         boxShadow="lg"
@@ -29,6 +29,7 @@ export const Services: React.FC<ServicesProps> = ({}) => {
         position="sticky"
         top={0}
         backgroundColor="white"
+        
       >
         <GoBackIcon boxSize="32px" />
         <Heading ml="4">My Services</Heading>

@@ -26,12 +26,13 @@ export const ServiceItem = ({ service, facetMap }) => {
     <Button
       fontWeight="regular"
       p="0"
-      width="100%"
+      // width="100%"
       backgroundColor="white"
       m="2"
       borderRadius="10px"
+      
     >
-      <SampleServiceIcon boxSize="38px" />
+      <SampleServiceIcon boxSize="24px" />
       <Box align="left" ml="2">
         <Text fontSize="sm" fontWeight="bold">
           {service.productName}

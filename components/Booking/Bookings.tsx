@@ -1,30 +1,33 @@
-import { CalendarIcon, SearchIcon } from "@chakra-ui/icons";
+import React from 'react';
+
 import {
-  Box,
+  CalendarIcon,
+  SearchIcon,
+} from '@chakra-ui/icons';
+import {
   Flex,
   Heading,
   Spacer,
+  Switch,
   Tab,
-  Text,
   TabList,
   TabPanel,
   TabPanels,
   Tabs,
-  Switch,
-} from "@chakra-ui/react";
-import React from "react";
-import { BookingList } from "./BookingList";
+  Text,
+} from '@chakra-ui/react';
+
+import { BookingList } from './BookingList';
 
 export const Bookings: React.FC = ({}) => {
   return (
-    <Flex direction="column">
+    <Flex direction="column" minW={["100vw","75vw","50vw","25vw"]} >
       <Flex m="4" align="center">
         <Heading>My Bookings</Heading>
         <Spacer />
-        <SearchIcon color="primary.300" mr="4" boxSize="28px" />
-        <CalendarIcon color="primary.300" boxSize="28px" />
+        <SearchIcon color="primary.300" mr="4" boxSize="24px" />
+        <CalendarIcon color="primary.300" boxSize="24px" />
       </Flex>
-
       <Tabs variant="soft-rounded">
         <TabList
           backgroundColor="background.50"
@@ -52,12 +55,14 @@ export const Bookings: React.FC = ({}) => {
           backgroundColor="background.50"
           height="100vh"
           mt="4"
-          width="100%"
+          // width="100%"
           direction="column"
         >
+          {/* Saloon Status Starts */}
           <Flex
             boxShadow="sm"
             m="2"
+            mx={4}
             p="2"
             borderRadius="15px"
             backgroundColor="white"
@@ -66,6 +71,7 @@ export const Bookings: React.FC = ({}) => {
             <Spacer />
             <Switch />
           </Flex>
+          {/* Saloon Status Ends */}
           <TabPanels>
             <TabPanel>
               <BookingList />
