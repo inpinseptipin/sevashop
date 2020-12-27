@@ -1,4 +1,21 @@
-# Sevashop
+<p align="center">
+
+  <img src="https://i.ibb.co/CPTSFLN/Seva-Shop-Logo.png" alt="Logo" width="160" height="160">
+
+  <h3 align="center">SevaShop</h3>
+
+  <p align="center"><img src="https://img.shields.io/github/issues-raw/SevaShop/sevashop?style=flat-square"> <img src="https://img.shields.io/website?url=https://sevashop.tech/&style=flat-square"> <img src="https://img.shields.io/github/languages/count/SevaShop/sevashop?style=flat-square"> <img src="https://img.shields.io/github/languages/code-size/SevaShop/sevashop?style=flat-square"> <img src="https://img.shields.io/github/stars/SevaShop/sevashop?style=flat-square"> <img src="https://img.shields.io/github/contributors/SevaShop/sevashop?style=flat-square"> <img src="https://img.shields.io/github/license/SevaShop/sevashop?style=flat-square"></p>
+
+  <p align="center">
+    <a href="https://sevashop.tech/">Website</a>
+    . 
+    <a href="https://app.sevashop.tech/welcome">App</a> 
+    . 
+    <a href="https://devfolio.co/submissions/sevashop">Support 💝</a>
+  </p>
+</p>  
+
+## 🚀 Take any service online
 
 The service sector in India faces the following problems.
 
@@ -9,42 +26,64 @@ The service sector in India faces the following problems.
 
 SevaShop helps any service-based business build their online stores with a simple mobile app. Our B2B application will allow businesses like salons, car workshops, etc., to create an e-commerce store in 15 secs. With multilingual and vernacular language support, we will empower tier 2 and 3 market segments to go online with ease.
 
-Checkout the [demo video](https://youtu.be/gWOxo-UuT28)
-Also see our [mvp video](https://youtu.be/o4YRtYcPQ84)
+### SevaShop Storefront
+
+<img src="https://i.imgur.com/57b3zNt.png" alt="SevaShop Storefront" width=100%>
+
+### Online Store
+
+<img src="https://i.imgur.com/Df8rw5K.png" alt="SevaShop Online Store" width=100%>
+
+
+## 💥 Demo
+
+- **Watch our <a href="https://youtu.be/gWOxo-UuT28">Demo Video</a>, <a href="https://youtu.be/o4YRtYcPQ84">MVP Video</a> on YouTube**
+
+- **Tryout <a href="https://app.sevashop.tech/welcome">SevaShop</a> now**
+
+## 📚 Tech Stack
 
 Here is the final stack we used
 
-#### Ecommerce framework
+- **Ecommerce framework :**
+  - [Vendure](vendure.io)
+  - Postgres
 
-- [Vendure](vendure.io)
-- Postgres
+- **Dashboard of a tenant :**
+  - Nextjs
+  - React
+  - Chakra UI framework
+  - Firebase for phone auth
+  - GraphQL admin api of vendure
 
-#### Dashboard of a tenant
+- **Storefront :**
+  - Nextjs
+  - React
+  - Chakra UI framework
+  - GraphQL shop api of vendure
 
-- Nextjs
-- React
-- Chakra UI framework
-- Firebase for phone auth
-- GraphQL admin api of vendure
+- **Deployment :**
+  - Nginx for reverse proxy
+  - Digitalocean droplet for Vendure server
+  - Vercel for the storefront and dashboard
 
-#### Storefront
+## Meet The Team
 
-- Nextjs
-- React
-- Chakra UI framework
-- GraphQL shop api of vendure
+![SevaShop](https://i.imgur.com/Q62yLsq.png)
 
-#### Deployment
+How do you feel we can improve? We're open to any feedback.
 
-- Nginx for reverse proxy
-- Digitalocean droplet for Vendure server
-- Vercel for the storefront and dashboard
+Feel free to suggest features/challenges. You can drop us an email on [contact.sevashop@gmail.com](contact.sevashop@gmail.com) or on [Telegram](https://t.me/rohanrajpal).
+<br>
+<br>
+
+***
 
 Thanks to all of the courses/blogs/docs mentioned below
 
-- https://react2025.com/
-- https://youtu.be/I6ypD7qv3Z8
-- https://chakra-ui.com/docs/getting-started
-- https://github.com/FormidableLabs/urql/discussions/1237
-- https://www.coderrocketfuel.com/article/how-to-deploy-a-next-js-website-to-a-digital-ocean-server
-- https://www.digitalocean.com/community/tutorials/how-to-set-up-a-node-js-application-for-production-on-ubuntu-18-04
+1. https://react2025.com
+1. https://youtu.be/I6ypD7qv3Z8
+1. https://chakra-ui.com/docs/getting-started
+1. https://github.com/FormidableLabs/urql/discussions/1237
+1. https://www.coderrocketfuel.com/article/how-to-deploy-a-next-js-website-to-a-digital-ocean-server
+1. https://www.digitalocean.com/community/tutorials/how-to-set-up-a-node-js-application-for-production-on-ubuntu-18-04
