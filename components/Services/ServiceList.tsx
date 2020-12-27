@@ -50,10 +50,6 @@ export const ServiceList = ({ gender }) => {
     {}
   );
 
-  // const result = new Map()
-
-  // console.log(facetMap);
-
   return (
     <Accordion defaultIndex={[0]} allowMultiple m="2">
       {productlist.search.facetValues

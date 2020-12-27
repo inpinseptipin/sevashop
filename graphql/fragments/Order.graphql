@@ -1,0 +1,30 @@
+fragment Order on Order {
+  id
+  createdAt
+  updatedAt
+  orderPlacedAt
+  code
+  state
+  nextStates
+  lines {
+    productVariant {
+      id
+      product {
+        name
+      }
+      facetValues {
+        id
+        name
+      }
+    }
+  }
+  total
+  currencyCode
+  customer {
+    id
+    firstName
+    lastName
+    __typename
+  }
+  __typename
+}
