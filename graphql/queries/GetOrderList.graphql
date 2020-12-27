@@ -1,0 +1,10 @@
+query GetOrderList($options: OrderListOptions) {
+  orders(options: $options) {
+    items {
+      ...Order
+      __typename
+    }
+    totalItems
+    __typename
+  }
+}

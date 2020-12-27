@@ -3,6 +3,7 @@ import React from 'react';
 import { withUrqlClient } from 'next-urql';
 import { useRouter } from 'next/router';
 
+import { Bookings } from '@/components/Booking/Bookings';
 import { Services } from '@/components/Services/Services';
 import { Settings } from '@/components/Settings';
 import { Share } from '@/components/Share';
@@ -24,7 +25,6 @@ import {
   useTab,
 } from '@chakra-ui/react';
 
-import { Bookings } from '../components/Bookings';
 import {
   BookingsIcon,
   ServicesIcon,

@@ -121,7 +121,7 @@ function useProvideAuth() {
       setUser(false);
       setLoading(false);
       deleteToken();
-      setToken("yti4eygxragh59ndrgz");
+      setToken("clv9yyef2lirfre4mwqf");
       router.push("/welcome");
       return false;
     }
