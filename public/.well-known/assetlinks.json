@@ -1,12 +1,5 @@
-[
-  {
-    "relation": ["delegate_permission/common.handle_all_urls"],
-    "target": {
-      "namespace": "android_app",
-      "package_name": "com.app.sevashop.tech",
-      "sha256_cert_fingerprints": [
-        "E0:42:4C:47:AF:AE:EC:99:08:C1:B5:EC:89:06:46:CF:89:1B:B1:07"
-      ]
-    }
-  }
-]
+[{
+      "relation": ["delegate_permission/common.handle_all_urls"],
+      "target" : { "namespace": "android_app", "package_name": "tech.sevashop.app.twa",
+                   "sha256_cert_fingerprints": ["07:2B:AD:44:CC:D4:F1:AA:7A:7F:5A:DB:3D:73:93:FA:26:4F:9D:02:46:8F:74:D5:4B:B1:24:A0:AE:4C:F5:45"] }
+    }]
