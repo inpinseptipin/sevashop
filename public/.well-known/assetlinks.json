@@ -1,5 +1,5 @@
 [{
       "relation": ["delegate_permission/common.handle_all_urls"],
       "target" : { "namespace": "android_app", "package_name": "tech.sevashop.app.twa",
-                   "sha256_cert_fingerprints": ["07:2B:AD:44:CC:D4:F1:AA:7A:7F:5A:DB:3D:73:93:FA:26:4F:9D:02:46:8F:74:D5:4B:B1:24:A0:AE:4C:F5:45"] }
+                   "sha256_cert_fingerprints": ["CD:C6:6E:CE:E0:C6:B9:BE:FC:1D:B3:A3:D6:C1:23:EC:AF:B8:DF:EA:F5:A8:4E:34:13:D6:9F:75:66:90:6A:6C"] }
     }]
