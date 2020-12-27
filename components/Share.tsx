@@ -20,7 +20,6 @@ interface ShareProps {}
 
 export const Share: React.FC<ShareProps> = ({}) => {
   return (
-    <Wrapper>
       <Flex direction="column">
         <Flex m="4" align="center">
           <GoBackIcon boxSize="32px" />
@@ -72,6 +71,5 @@ export const Share: React.FC<ShareProps> = ({}) => {
           </Button>
         </Flex>
       </Flex>
-    </Wrapper>
   );
 };

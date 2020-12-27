@@ -78,38 +78,38 @@ const Home: React.FC<{}> = ({}) => {
 
   return (
     <Wrapper>
-      <Flex direction="column">
-        <Tabs isFitted variant="unstyled" maxW="800px">
-          <TabPanels>
-            <TabPanel p={0}>
+      <Flex direction="column" align="center" width="100vw">
+        <Tabs isFitted variant="unstyled" >
+          <TabPanels >
+            <TabPanel p={0} >
               <Bookings />
             </TabPanel>
-            <TabPanel p={0}>
+            <TabPanel p={0} >
               <Services />
             </TabPanel>
-            <TabPanel p={0}>
+            <TabPanel p={0} >
               <Share />
             </TabPanel>
-            <TabPanel>
+            <TabPanel p={0} >
               <Settings />
             </TabPanel>
           </TabPanels>
-          <Box boxShadow="2xl" width="100%" position="fixed" bottom="0">
+          <Box boxShadow="2xl" mx="auto" position="fixed" bottom="0">
             <TabList>
               <CustomTab>
-                <BookingsIcon boxSize="28px" />
+                <BookingsIcon boxSize="20px" />
                 <Text fontSize="sm">Bookings</Text>
               </CustomTab>
               <CustomTab>
-                <ServicesIcon boxSize="28px" />
+                <ServicesIcon boxSize="20px" />
                 <Text fontSize="sm">Services</Text>
               </CustomTab>
               <CustomTab>
-                <WhatsAppIcon boxSize="28px" />
+                <WhatsAppIcon boxSize="20px" />
                 <Text fontSize="sm">Share</Text>
               </CustomTab>
               <CustomTab>
-                <SettingsIcon boxSize="28px" />
+                <SettingsIcon boxSize="20px" />
                 <Text fontSize="sm">Settings</Text>
               </CustomTab>
             </TabList>

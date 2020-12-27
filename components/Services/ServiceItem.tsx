@@ -30,6 +30,7 @@ export const ServiceItem = ({ service, facetMap }) => {
       backgroundColor="white"
       m="2"
       borderRadius="10px"
+      
     >
       <SampleServiceIcon boxSize="38px" />
       <Box align="left" ml="2">

@@ -17,14 +17,13 @@ import { BookingList } from "./BookingList";
 
 export const Bookings: React.FC = ({}) => {
   return (
-    <Flex direction="column">
+    <Flex direction="column" >
       <Flex m="4" align="center">
         <Heading>My Bookings</Heading>
         <Spacer />
-        <SearchIcon color="primary.300" mr="4" boxSize="28px" />
-        <CalendarIcon color="primary.300" boxSize="28px" />
+        <SearchIcon color="primary.300" mr="4" boxSize="24px" />
+        <CalendarIcon color="primary.300" boxSize="24px" />
       </Flex>
-
       <Tabs variant="soft-rounded">
         <TabList
           backgroundColor="background.50"
@@ -50,7 +49,7 @@ export const Bookings: React.FC = ({}) => {
         </TabList>
         <Flex
           backgroundColor="background.50"
-          height="100vh"
+          // height="100vh"
           mt="4"
           width="100%"
           direction="column"

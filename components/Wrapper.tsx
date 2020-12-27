@@ -14,8 +14,9 @@ export const Wrapper: React.FC<WrapperProps> = ({
     <Flex
       // mt={8}
       // mx="auto"
-      maxW={variant === "regular" ? "800px" : "400px"}
-      w="100%"
+      alignItems="center"
+      // maxW={variant === "regular" ? "800px" : "400px"}
+      width={["100%", "100%", "100%","100%"]}
       // h="100%"
     >
       {children}
