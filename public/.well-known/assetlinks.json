@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.app.sevashop.tech",
+      "sha256_cert_fingerprints": [
+        "E0:42:4C:47:AF:AE:EC:99:08:C1:B5:EC:89:06:46:CF:89:1B:B1:07"
+      ]
+    }
+  }
+]
