@@ -1,4 +1,8 @@
-import { useAuth } from "@/lib/auth";
+import React from 'react';
+
+import { useRouter } from 'next/router';
+
+import { useAuth } from '@/lib/auth';
 import {
   Button,
   Flex,
@@ -10,9 +14,7 @@ import {
   TabPanels,
   Tabs,
   Text,
-} from "@chakra-ui/react";
-import { useRouter } from "next/router";
-import React from "react";
+} from '@chakra-ui/react';
 
 const Welcome: React.FC<{}> = ({}) => {
   const router = useRouter();
@@ -22,6 +24,8 @@ const Welcome: React.FC<{}> = ({}) => {
       height="100vh"
       p="4"
       direction="column"
+      maxW={["100vw", "75vw", "50vw", "25vw"]}
+      mx="auto"
       justify="center"
       align="center"
     >
