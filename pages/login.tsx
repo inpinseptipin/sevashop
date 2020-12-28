@@ -130,7 +130,12 @@ const Login: React.FC<{}> = ({}) => {
 
   const [body, setBody] = useState("screen1");
   return (
-    <Flex height="100vh" direction="column" maxW="400px">
+    <Flex
+      height="100vh"
+      direction="column"
+      maxW={["100vw", "75vw", "50vw", "25vw"]}
+      mx="auto"
+    >
       <div id="recaptcha-container"></div>
       {body === "screen1" ? screen1 : screen2}
     </Flex>
