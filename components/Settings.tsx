@@ -67,7 +67,7 @@ export const Settings: React.FC<SettingsProps> = ({}) => {
   if (!data) return <Skeleton m="2" height="40px" />;
   const link = `https://sevashop.tech/${data.user.channelToken}`;
   return (
-    <Flex  p="2" direction="column" minW={["100vw","75vw","50vw","25vw"]}>
+    <Flex p="2" direction="column" minW={["100vw", "75vw", "50vw", "25vw"]}>
       <HStack>
         <QuestionIcon boxSize="96px" />
         <Box>
