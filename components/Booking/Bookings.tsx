@@ -21,8 +21,15 @@ import { BookingList } from './BookingList';
 
 export const Bookings: React.FC = ({}) => {
   return (
-    <Flex direction="column" minW={["100vw","75vw","50vw","25vw"]} >
-      <Flex m="4" align="center">
+    <Flex direction="column" minW={["100vw", "75vw", "50vw", "25vw"]}>
+      <Flex
+        m="4"
+        align="center"
+        position="sticky"
+        top={0}
+        backgroundColor="white"
+        zIndex={1}
+      >
         <Heading>My Bookings</Heading>
         <Spacer />
         <SearchIcon color="primary.300" mr="4" boxSize="24px" />
